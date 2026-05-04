@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I'm Sorry, Mayalau 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;1,400&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #e8728a;
+    --blush: #f4a7b9;
+    --petal: #fde8ed;
+    --cream: #fff8f9;
+    --deep: #8b3a52;
+    --soft: #f9d1da;
+    --text: #5a2535;
+    --gold: #d4a574;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Lora', serif;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Petal background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(232,114,138,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(244,167,185,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 50%, rgba(253,232,237,0.4) 0%, transparent 80%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Floating hearts */
+  .hearts-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .heart-float {
+    position: absolute;
+    bottom: -60px;
+    font-size: 1.2rem;
+    opacity: 0;
+    animation: floatUp linear infinite;
+  }
+
+  @keyframes floatUp {
+    0%   { transform: translateY(0) rotate(-10deg) scale(0.8); opacity: 0; }
+    10%  { opacity: 0.4; }
+    90%  { opacity: 0.2; }
+    100% { transform: translateY(-110vh) rotate(15deg) scale(1.1); opacity: 0; }
+  }
+
+  /* Wrapper */
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 20px 80px;
+  }
+
+  /* Top ribbon */
+  .ribbon {
+    text-align: center;
+    margin-bottom: 10px;
+    animation: fadeDown 1s ease both;
+  }
+
+  .ribbon-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem;
+    color: var(--blush);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* Main title */
+  .main-title {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeDown 1s 0.2s ease both;
+  }
+
+  .main-title h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 8vw, 4.5rem);
+    font-weight: 600;
+    color: var(--rose);
+    line-height: 1.1;
+    position: relative;
+    display: inline-block;
+  }
+
+  .main-title h1::after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 60%;
+    margin: 10px auto 0;
+    background: linear-gradient(90deg, transparent, var(--blush), transparent);
+    border-radius: 99px;
+  }
+
+  .subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-top: 8px;
+  }
+
+  /* Letter card */
+  .letter-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 50px 48px;
+    box-shadow:
+      0 4px 40px rgba(232,114,138,0.12),
+      0 1px 3px rgba(232,114,138,0.08),
+      inset 0 0 0 1px rgba(244,167,185,0.3);
+    position: relative;
+    animation: fadeUp 1s 0.4s ease both;
+  }
+
+  /* Decorative corner flowers */
+  .letter-card::before,
+  .letter-card::after {
+    content: '🌸';
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.5;
+  }
+  .letter-card::before { top: 18px; left: 22px; }
+  .letter-card::after  { bottom: 18px; right: 22px; transform: scaleX(-1); }
+
+  /* Letter lines like notebook paper */
+  .letter-lines {
+    position: absolute;
+    inset: 60px 48px;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent calc(2rem - 1px),
+      rgba(244,167,185,0.15) calc(2rem - 1px),
+      rgba(244,167,185,0.15) 2rem
+    );
+    pointer-events: none;
+    border-radius: 4px;
+  }
+
+  .dear-line {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    color: var(--rose);
+    margin-bottom: 24px;
+    display: block;
+    position: relative;
+  }
+
+  /* Paragraphs */
+  .letter-body p {
+    font-family: 'Lora', serif;
+    font-size: 1.02rem;
+    line-height: 2rem;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .letter-body p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  /* Highlighted emotional phrases */
+  .highlight {
+    color: var(--rose);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .bold-love {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--deep);
+    font-size: 1.08rem;
+  }
+
+  /* Sign-off */
+  .sign-off {
+    margin-top: 36px;
+    text-align: right;
+    position: relative;
+  }
+
+  .sign-off p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    color: var(--rose);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .sign-off .name {
+    font-size: 2rem;
+    color: var(--deep);
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* Heart divider */
+  .heart-divider {
+    text-align: center;
+    margin: 28px 0;
+    font-size: 1rem;
+    color: var(--blush);
+    letter-spacing: 8px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  /* Bottom quote */
+  .bottom-quote {
+    text-align: center;
+    margin-top: 40px;
+    animation: fadeUp 1s 0.7s ease both;
+  }
+
+  .bottom-quote blockquote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--rose);
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 24px 32px;
+    border-left: 3px solid var(--blush);
+    border-right: 3px solid var(--blush);
+    background: rgba(253,232,237,0.5);
+    border-radius: 12px;
+  }
+
+  /* Little envelope decoration at the top */
+  .envelope-top {
+    text-align: center;
+    font-size: 3.5rem;
+    margin-bottom: 16px;
+    animation: bounce 2s 1s ease infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+  }
+
+  /* Sparkle stars decoration */
+  .sparkle {
+    display: inline-block;
+    animation: twinkle 1.5s ease-in-out infinite;
+  }
+  .sparkle:nth-child(2) { animation-delay: 0.5s; }
+  .sparkle:nth-child(3) { animation-delay: 1s; }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  /* Animations */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 520px) {
+    .letter-card { padding: 36px 24px; }
+  }
+
+  /* Petal drizzle at top */
+  .petal-top {
+    text-align: center;
+    font-size: 0.9rem;
+    letter-spacing: 12px;
+    color: var(--blush);
+    margin-bottom: 6px;
+    opacity: 0.7;
+    animation: fadeDown 1s ease both;
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating hearts background -->
+<div class="hearts-bg" id="heartsContainer"></div>
+
+<div class="wrapper">
+
+  <div class="petal-top">🌸 🌷 🌸 🌷 🌸</div>
+
+  <div class="ribbon">
+    <span class="ribbon-text">
+      <span class="sparkle">✦</span>
+      &nbsp;a letter from the heart&nbsp;
+      <span class="sparkle">✦</span>
+    </span>
+  </div>
+
+  <div class="main-title">
+    <h1>I'm Sorry</h1>
+    <div class="subtitle">with all my heart 💕</div>
+  </div>
+
+  <div class="envelope-top">💌</div>
+
+  <div class="letter-card">
+    <div class="letter-lines"></div>
+
+    <span class="dear-line">My dearest Mayalau,</span>
+
+    <div class="letter-body">
+
+      <p>
+        I am sorry. When you cut that call yesterday, I was busy and at first I didn't even
+        realise you had cut it. My phone didn't give me any vibration. When I finally saw it,
+        I thought you were busy or on a call with someone else. That's why you cut it.
+        Because normally, you don't.
+      </p>
+
+      <p>
+        And I'm not even sure if you were calling out to me while we were still on the call.
+        <span class="highlight">Maybe I didn't hear you.</span> Maybe I missed it completely.
+        And I am so sorry for that.
+      </p>
+
+      <div class="heart-divider">♥ &nbsp; ♥ &nbsp; ♥</div>
+
+      <p>
+        I didn't call you back instantly after I saw you had cut the call. First because I thought
+        you were still on another phone. And second because I didn't want to call you just to say
+        nothing, while talking to other people and keeping you on hold. I didn't want to do that to you.
+      </p>
+
+      <p>
+        <span class="highlight">I know I make a lot of mistakes.</span>
+        But I want to be better for you. I want to know the way you want me to be.
+        If you don't tell me why you're upset, <span class="bold-love">how can I even fix myself?</span>
+        Please tell me. I am listening.
+      </p>
+
+      <div class="heart-divider">♥ &nbsp; ♥ &nbsp; ♥</div>
+
+      <p>
+        I know you must be so tired of explaining things to me. And that breaks my heart.
+        But I am trying. <em>For you. For us.</em>
+        I know I am not always capable of treating you the way you deserve.
+        But I will try my best, every single day.
+        I never want to hurt you. I want to give you all the happiness you deserve.
+        My intention is never, ever to hurt you.
+      </p>
+
+      <p>
+        And when I do mess up, <span class="highlight">please don't go silent on me.</span>
+        Please. Fight with me. Yell at me. Curse me if you have to.
+        But please, please <em>talk</em> to me.
+        I can handle your anger. I can take your frustration.
+        But your silence? <span class="bold-love">No. I cannot take it.</span>
+        It burns my heart when you stop talking to me. It truly does.
+      </p>
+
+      <div class="heart-divider">♥ &nbsp; ♥ &nbsp; ♥</div>
+
+      <p>
+        Please forgive me. I will try to understand you more from now on.
+      </p>
+
+    </div>
+
+    <div class="sign-off">
+      <p>
+        With all the love I have,
+        <span class="name">I love you, Mayalau. 💕</span>
+        <span style="font-size:1.1rem; color:var(--blush);">I love you soo much.</span>
+      </p>
+    </div>
+  </div>
+
+
+
+</div>
+
+<script>
+  // Generate floating hearts
+  const container = document.getElementById('heartsContainer');
+  const emojis = ['💕','💗','💓','🌸','💞','🌷','💖','✨','💝'];
+
+  function createHeart() {
+    const el = document.createElement('div');
+    el.className = 'heart-float';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.fontSize = (0.8 + Math.random() * 1.4) + 'rem';
+    const dur = 8 + Math.random() * 10;
+    el.style.animationDuration = dur + 's';
+    el.style.animationDelay = (Math.random() * 6) + 's';
+    container.appendChild(el);
+    setTimeout(() => el.remove(), (dur + 6) * 1000);
+  }
+
+  // Spawn hearts
+  for (let i = 0; i < 18; i++) createHeart();
+  setInterval(createHeart, 1200);
+</script>
+
+</body>
+</html>
