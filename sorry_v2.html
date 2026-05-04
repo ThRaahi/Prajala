@@ -3,28 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Mayalau 💌</title>
+<title>For Mayalu 💌</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Great+Vibes&family=Cormorant:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
-
 <style>
+
 /* ============================================================
    ROOT & RESET
    ============================================================ */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --midnight:   #0b0810;
-  --deep:       #130f1c;
-  --candle:     #e8924a;
-  --candle-dim: #c4703a;
-  --rose:       #c95f78;
-  --blush:      #e8a0b0;
-  --parchment:  #f7eed8;
-  --parch-dark: #eddcbe;
-  --ink:        #3a2535;
-  --gold:       #d4a55a;
-  --gold-dim:   #a07840;
-  --white-soft: #fdf6f0;
+  --midnight: #0b0810;
+  --rose-acc: #c95f78;
+  --blush:    #e8a0b0;
+  --parchment:#fdf4e0;
+  --ink:      #3a2535;
+  --gold:     #d4a55a;
+  --gold-dim: #a07840;
+  --amber:    #e8924a;
 }
 
 html { scroll-behavior: smooth; }
@@ -33,29 +29,20 @@ body {
   background: var(--midnight);
   min-height: 100vh;
   font-family: 'Cormorant Garamond', serif;
-  color: var(--parchment);
   overflow-x: hidden;
   cursor: default;
 }
 
 /* ============================================================
-   PARTICLE CANVAS (rose petals + embers)
+   FIXED BG GLOW + CANVAS
    ============================================================ */
 #canvas {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
 }
-
-/* ============================================================
-   AMBIENT BACKGROUND GLOW
-   ============================================================ */
 .bg-glow {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
   background:
     radial-gradient(ellipse 60% 50% at 50% 80%, rgba(232,146,74,0.08) 0%, transparent 70%),
     radial-gradient(ellipse 40% 30% at 20% 90%, rgba(201,95,120,0.06) 0%, transparent 60%),
@@ -63,21 +50,14 @@ body {
   animation: ambientPulse 6s ease-in-out infinite alternate;
 }
 @keyframes ambientPulse {
-  from { opacity: 0.7; }
-  to   { opacity: 1; }
+  from { opacity: 0.7; } to { opacity: 1; }
 }
 
 /* ============================================================
-   CANDLE
-   ============================================================ */
-
-
-/* ============================================================
-   PAGE WRAPPER
+   WRAPPER
    ============================================================ */
 .wrapper {
-  position: relative;
-  z-index: 2;
+  position: relative; z-index: 2;
   max-width: 700px;
   margin: 0 auto;
   padding: 0 20px 100px;
@@ -91,7 +71,6 @@ body {
   padding: 60px 0 20px;
   animation: fadeIn 2s 0.5s ease both;
 }
-
 .from-text {
   font-family: 'Great Vibes', cursive;
   font-size: 1.1rem;
@@ -100,29 +79,22 @@ body {
   margin-bottom: 8px;
   opacity: 0.8;
 }
-
 .main-title {
   font-family: 'Great Vibes', cursive;
   font-size: clamp(3rem, 10vw, 5.5rem);
-  color: var(--candle);
+  color: var(--amber);
   line-height: 1;
-  text-shadow:
-    0 0 30px rgba(232,146,74,0.5),
-    0 0 60px rgba(232,146,74,0.2),
-    0 0 100px rgba(232,146,74,0.1);
   animation: titleGlow 3s ease-in-out infinite alternate;
 }
-
 @keyframes titleGlow {
   from { text-shadow: 0 0 20px rgba(232,146,74,0.4), 0 0 50px rgba(232,146,74,0.15); }
   to   { text-shadow: 0 0 40px rgba(232,146,74,0.7), 0 0 80px rgba(232,146,74,0.3), 0 0 120px rgba(201,95,120,0.15); }
 }
-
 .heart-row {
   margin-top: 12px;
   font-size: 0.9rem;
   letter-spacing: 10px;
-  color: var(--rose);
+  color: var(--rose-acc);
   opacity: 0.7;
   animation: heartbeat 2s ease-in-out infinite;
 }
@@ -132,152 +104,249 @@ body {
 }
 
 /* ============================================================
-   SCROLL DESIGN
+   SCROLL OUTER
    ============================================================ */
 .scroll-outer {
   position: relative;
-  margin-top: 20px;
+  margin-top: 24px;
   animation: riseFade 1.5s 1s ease both;
-  filter: drop-shadow(0 20px 50px rgba(0,0,0,0.7));
 }
-
 @keyframes riseFade {
   from { opacity: 0; transform: translateY(40px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ---- Scroll rollers (top & bottom) ---- */
+/* ============================================================
+   ROLLERS
+   ============================================================ */
 .scroll-roller {
   position: relative;
-  height: 38px;
-  z-index: 3;
-  border-radius: 19px;
+  height: 40px;
+  z-index: 4;
+  border-radius: 20px;
   background: linear-gradient(
     to bottom,
-    #6b3d1e 0%,
-    #a0622a 18%,
-    #c9864e 35%,
-    #e8aa6a 50%,
-    #c9864e 65%,
-    #a0622a 82%,
-    #5a3018 100%
+    #5a3010 0%,
+    #9a6030 15%,
+    #c98848 32%,
+    #e8a860 50%,
+    #c98848 68%,
+    #9a6030 85%,
+    #5a3010 100%
   );
   box-shadow:
-    0 6px 18px rgba(0,0,0,0.55),
-    0 2px 4px rgba(0,0,0,0.4),
-    inset 0 1px 3px rgba(255,220,150,0.25),
-    inset 0 -2px 4px rgba(0,0,0,0.3);
+    0 6px 20px rgba(0,0,0,0.65),
+    0 2px 6px rgba(0,0,0,0.45),
+    inset 0 1px 4px rgba(255,220,150,0.3),
+    inset 0 -2px 5px rgba(0,0,0,0.35);
+  cursor: pointer;
 }
-
-/* Knobs on each end of roller */
+/* Knobs */
 .scroll-roller::before,
 .scroll-roller::after {
   content: '';
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 52px;
-  border-radius: 10px;
+  top: 50%; transform: translateY(-50%);
+  width: 22px; height: 56px;
+  border-radius: 11px;
   background: linear-gradient(
     to right,
-    #5a3018 0%,
-    #a06030 30%,
-    #d49050 50%,
-    #a06030 70%,
-    #5a3018 100%
+    #4a2808 0%, #8a5020 28%,
+    #c07838 50%,
+    #8a5020 72%, #4a2808 100%
   );
-  box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.55);
 }
-.scroll-roller::before { left: -6px; }
-.scroll-roller::after  { right: -6px; }
+.scroll-roller::before { left: -7px; }
+.scroll-roller::after  { right: -7px; }
 
 .scroll-roller-bottom {
-  /* slightly flipped lighting */
   background: linear-gradient(
     to bottom,
-    #5a3018 0%,
-    #9a5e28 18%,
-    #c08048 35%,
-    #dca060 50%,
-    #c08048 65%,
-    #9a5e28 82%,
+    #4e2810 0%,
+    #8a5828 15%,
+    #b87840 32%,
+    #d89858 50%,
+    #b87840 68%,
+    #8a5828 85%,
     #4e2810 100%
   );
+  /* starts hidden — appears when scroll opens */
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.scroll-outer.opened .scroll-roller-bottom {
+  opacity: 1;
 }
 
-/* ---- Scroll body (parchment) ---- */
+/* ============================================================
+   TAP HINT
+   ============================================================ */
+.tap-hint {
+  text-align: center;
+  padding: 16px 0 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.6s ease;
+}
+.tap-hint span {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.3rem;
+  color: var(--gold-dim);
+  opacity: 0.75;
+  animation: hintPulse 2.5s ease-in-out infinite;
+  display: inline-block;
+  letter-spacing: 0.05em;
+}
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.5; transform: translateY(0); }
+  50%       { opacity: 0.9; transform: translateY(-3px); }
+}
+.tap-hint.hidden { opacity: 0; pointer-events: none; }
+
+/* ============================================================
+   SCROLL TRACK (the expandable container)
+   ============================================================ */
+.scroll-track {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* drop-shadow applies around the clipped ragged shape */
+  filter: drop-shadow(0 12px 40px rgba(0,0,0,0.65));
+}
+.scroll-track.opened {
+  max-height: 4000px;
+}
+
+/* ============================================================
+   RAGGED PARCHMENT BODY
+   ============================================================ */
 .scroll-body {
   position: relative;
   background: linear-gradient(
     to right,
-    #c8a86a 0%,
-    #e8d4a8 4%,
-    #f5e8c8 8%,
-    #faf0d8 15%,
+    #b89050 0%,
+    #d8bc84 3%,
+    #ecd8a8 7%,
+    #f8ecc8 13%,
     #fdf4e0 50%,
-    #faf0d8 85%,
-    #f5e8c8 92%,
-    #e8d4a8 96%,
-    #c8a86a 100%
+    #f8ecc8 87%,
+    #ecd8a8 93%,
+    #d8bc84 97%,
+    #b89050 100%
   );
-  padding: 48px 60px 52px;
-  overflow: hidden;
-  /* Top & bottom curl shadows */
+  /* Ragged torn left + right edges */
+  clip-path: polygon(
+    /* top edge - straight */
+    0% 0%, 100% 0%,
+    /* RIGHT side going down — ragged */
+    100.9% 1.2%, 99.1% 2.4%, 101.1% 3.7%, 98.8% 5%,
+    100.7% 6.4%, 99.3% 7.8%, 101.2% 9.1%, 98.7% 10.5%,
+    100.6% 11.9%, 99.4% 13.3%, 101% 14.7%, 98.9% 16.1%,
+    100.8% 17.5%, 99.2% 18.9%, 101.3% 20.3%, 98.6% 21.7%,
+    100.5% 23.1%, 99.5% 24.6%, 101.1% 26%, 98.8% 27.4%,
+    100.7% 28.8%, 99.3% 30.3%, 101.2% 31.7%, 98.7% 33.1%,
+    100.6% 34.5%, 99.4% 36%, 101% 37.4%, 98.9% 38.8%,
+    100.8% 40.2%, 99.2% 41.7%, 101.3% 43.1%, 98.6% 44.5%,
+    100.5% 45.9%, 99.5% 47.4%, 101.1% 48.8%, 98.8% 50.2%,
+    100.7% 51.6%, 99.3% 53.1%, 101.2% 54.5%, 98.7% 55.9%,
+    100.6% 57.3%, 99.4% 58.8%, 101% 60.2%, 98.9% 61.6%,
+    100.8% 63%, 99.2% 64.5%, 101.3% 65.9%, 98.6% 67.3%,
+    100.5% 68.7%, 99.5% 70.2%, 101.1% 71.6%, 98.8% 73%,
+    100.7% 74.4%, 99.3% 75.9%, 101.2% 77.3%, 98.7% 78.7%,
+    100.6% 80.1%, 99.4% 81.6%, 101% 83%, 98.9% 84.4%,
+    100.8% 85.8%, 99.2% 87.3%, 101.3% 88.7%, 98.6% 90.1%,
+    100.5% 91.5%, 99.5% 93%, 101.1% 94.4%, 98.8% 95.8%,
+    100.7% 97.2%, 99.1% 98.6%,
+    /* bottom edge - straight */
+    100% 100%, 0% 100%,
+    /* LEFT side going up — ragged */
+    -0.9% 98.6%, 0.9% 97.2%, -1.1% 95.8%, 1.2% 94.4%,
+    -0.7% 93%, 0.7% 91.5%, -1.2% 90.1%, 1.3% 88.7%,
+    -0.6% 87.3%, 0.6% 85.8%, -1% 84.4%, 1.1% 83%,
+    -0.8% 81.6%, 0.8% 80.1%, -1.3% 78.7%, 1.4% 77.3%,
+    -0.5% 75.9%, 0.5% 74.4%, -1.1% 73%, 1.2% 71.6%,
+    -0.7% 70.2%, 0.7% 68.7%, -1.2% 67.3%, 1.3% 65.9%,
+    -0.6% 64.5%, 0.6% 63%, -1% 61.6%, 1.1% 60.2%,
+    -0.8% 58.8%, 0.8% 57.3%, -1.3% 55.9%, 1.4% 54.5%,
+    -0.5% 53.1%, 0.5% 51.6%, -1.1% 50.2%, 1.2% 48.8%,
+    -0.7% 47.4%, 0.7% 45.9%, -1.2% 44.5%, 1.3% 43.1%,
+    -0.6% 41.7%, 0.6% 40.2%, -1% 38.8%, 1.1% 37.4%,
+    -0.8% 36%, 0.8% 34.5%, -1.3% 33.1%, 1.4% 31.7%,
+    -0.5% 30.3%, 0.5% 28.8%, -1.1% 27.4%, 1.2% 26%,
+    -0.7% 24.6%, 0.7% 23.1%, -1.2% 21.7%, 1.3% 20.3%,
+    -0.6% 18.9%, 0.6% 17.5%, -1% 16.1%, 1.1% 14.7%,
+    -0.8% 13.3%, 0.8% 11.9%, -1.3% 10.5%, 1.4% 9.1%,
+    -0.5% 7.8%, 0.5% 6.4%, -1.1% 5%, 1.2% 3.7%,
+    -0.7% 2.4%, 0.7% 1.2%
+  );
+  /* Inner shadows for depth + parchment curl feel */
   box-shadow:
-    inset 0 14px 18px -10px rgba(100,60,20,0.25),
-    inset 0 -14px 18px -10px rgba(100,60,20,0.25),
-    inset 4px 0 8px -4px rgba(100,60,20,0.15),
-    inset -4px 0 8px -4px rgba(100,60,20,0.15);
+    inset 0 16px 22px -12px rgba(90,50,10,0.3),
+    inset 0 -16px 22px -12px rgba(90,50,10,0.3),
+    inset 5px 0 10px -5px rgba(90,50,10,0.2),
+    inset -5px 0 10px -5px rgba(90,50,10,0.2);
 }
 
-/* Subtle grain texture */
+/* Grain texture + warm vignette */
 .scroll-body::before {
   content: '';
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0; pointer-events: none;
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
-    linear-gradient(180deg, rgba(180,130,70,0.06) 0%, transparent 20%, transparent 80%, rgba(180,130,70,0.06) 100%);
-  pointer-events: none;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"),
+    linear-gradient(to bottom, rgba(160,110,50,0.05) 0%, transparent 18%, transparent 82%, rgba(160,110,50,0.05) 100%);
 }
-
-/* Candlelight warm centre glow on parchment */
 .scroll-body::after {
   content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(232,180,80,0.07) 0%, transparent 70%);
-  pointer-events: none;
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 70% 55% at 50% 42%, rgba(220,170,70,0.06) 0%, transparent 70%);
 }
 
-/* ---- Top ornament inside scroll ---- */
+/* ============================================================
+   INNER CONTENT — fades in after scroll opens
+   ============================================================ */
+.scroll-inner {
+  position: relative;
+  padding: 44px 58px 52px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 1.8s ease 1.8s, transform 1.8s ease 1.8s;
+}
+.scroll-track.opened .scroll-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   TOP ORNAMENT INSIDE SCROLL
+   ============================================================ */
 .scroll-ornament {
   text-align: center;
-  margin-bottom: 18px;
-  line-height: 1;
-  position: relative;
+  margin-bottom: 20px;
 }
-.scroll-ornament .orn-line {
+.orn-line {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
-  color: rgba(120,70,40,0.35);
-  font-size: 0.75rem;
-  letter-spacing: 4px;
+  color: rgba(120,75,40,0.4);
 }
-.scroll-ornament .orn-line::before,
-.scroll-ornament .orn-line::after {
+.orn-line::before,
+.orn-line::after {
   content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(160,90,50,0.3), transparent);
+  flex: 1; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(150,90,45,0.35), transparent);
 }
-.scroll-ornament .orn-heart {
-  font-size: 1rem;
-  color: rgba(170,90,70,0.5);
-  line-height: 1;
+.orn-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.78rem;
+  color: rgba(130,80,42,0.5);
+  letter-spacing: 0.22em;
+  white-space: nowrap;
+}
+.orn-heart {
+  font-size: 0.95rem;
+  color: rgba(165,85,65,0.5);
 }
 
 /* ============================================================
@@ -285,64 +354,57 @@ body {
    ============================================================ */
 .dear-line {
   font-family: 'Great Vibes', cursive;
-  font-size: 2.2rem;
-  color: var(--rose);
+  font-size: 2.3rem;
+  color: #b84060;
   display: block;
   margin-bottom: 28px;
-  text-shadow: 0 0 20px rgba(201,95,120,0.3);
-  position: relative;
-}
-
-.letter-body {
-  position: relative;
+  text-shadow: 0 0 18px rgba(185,64,96,0.25);
 }
 
 .letter-body p {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
+  font-size: 1.08rem;
   font-weight: 400;
   line-height: 2rem;
   color: var(--ink);
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.35rem;
   letter-spacing: 0.01em;
 }
 
-/* Emotional emphasis */
 em.warm {
   font-style: italic;
   color: #8b3a52;
   font-weight: 500;
 }
-
 strong.soul {
   font-family: 'Cormorant', serif;
   font-style: italic;
-  font-weight: 400;
-  font-size: 1.15em;
+  font-size: 1.14em;
   color: #7a2840;
+  font-weight: 400;
   letter-spacing: 0.02em;
 }
 
-/* Divider between sections */
 .divider {
   text-align: center;
-  margin: 20px 0;
+  margin: 18px 0;
   font-size: 0.85rem;
   letter-spacing: 14px;
-  color: var(--rose);
-  opacity: 0.45;
+  color: #c05070;
+  opacity: 0.4;
   animation: divPulse 3s ease-in-out infinite;
 }
 @keyframes divPulse {
-  0%, 100% { opacity: 0.35; letter-spacing: 14px; }
-  50%       { opacity: 0.6;  letter-spacing: 16px; }
+  0%, 100% { opacity: 0.3; letter-spacing: 13px; }
+  50%       { opacity: 0.55; letter-spacing: 16px; }
 }
 
-/* Sign-off */
+/* ============================================================
+   SIGN-OFF
+   ============================================================ */
 .sign-off {
   margin-top: 36px;
   text-align: right;
-  position: relative;
 }
 .sign-off .closing {
   font-family: 'Cormorant Garamond', serif;
@@ -350,15 +412,15 @@ strong.soul {
   font-size: 1rem;
   color: #6a3040;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 .sign-off .name {
   font-family: 'Great Vibes', cursive;
   font-size: 2.6rem;
-  color: var(--rose);
+  color: #b84060;
   display: block;
   line-height: 1.1;
-  text-shadow: 0 0 20px rgba(201,95,120,0.25);
+  text-shadow: 0 0 18px rgba(185,64,96,0.22);
 }
 .sign-off .love-line {
   font-family: 'Cormorant Garamond', serif;
@@ -370,117 +432,171 @@ strong.soul {
 }
 
 /* ============================================================
-   FOOTER CANDLE ROW
+   BIG ROSE FOOTER
    ============================================================ */
-.footer-glow {
+.rose-footer {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 52px;
   animation: fadeIn 2s 2s ease both;
+  user-select: none;
 }
-.footer-glow p {
+.rose-emoji {
+  font-size: 5.5rem;
+  display: inline-block;
+  animation: roseFloat 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(201,95,120,0.45))
+          drop-shadow(0 0 50px rgba(201,95,120,0.2));
+  line-height: 1;
+}
+@keyframes roseFloat {
+  0%, 100% { transform: translateY(0) rotate(-4deg) scale(1); }
+  50%       { transform: translateY(-10px) rotate(4deg) scale(1.04); }
+}
+.rose-caption {
   font-family: 'Great Vibes', cursive;
-  font-size: 1.4rem;
-  color: var(--candle-dim);
-  opacity: 0.7;
-  text-shadow: 0 0 20px rgba(232,146,74,0.3);
+  font-size: 1.3rem;
+  color: var(--gold-dim);
+  opacity: 0.65;
+  margin-top: 10px;
+  display: block;
+  animation: hintPulse 3s ease-in-out infinite;
 }
 
 /* ============================================================
-   ANIMATIONS
+   SHARED ANIMATIONS
    ============================================================ */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from { opacity: 0; } to { opacity: 1; }
 }
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 540px) {
-  .scroll-body  { padding: 40px 24px 44px; }
+  .scroll-inner { padding: 36px 22px 42px; }
   .main-title   { font-size: 3rem; }
-  .scroll-roller::before, .scroll-roller::after { width: 14px; height: 42px; }
+  .scroll-roller::before,
+  .scroll-roller::after { width: 15px; height: 44px; }
+  .rose-emoji { font-size: 4rem; }
 }
+
 </style>
 </head>
 <body>
 
-<!-- Ambient glow layer -->
 <div class="bg-glow"></div>
-
-<!-- Particle canvas for petals & embers -->
 <canvas id="canvas"></canvas>
 
-<!-- Main content -->
 <div class="wrapper">
 
+  <!-- HEADER -->
   <header class="header">
     <div class="from-text">a letter written with every piece of my heart</div>
     <h1 class="main-title">I'm Sorry</h1>
     <div class="heart-row">♥ &nbsp; ♥ &nbsp; ♥</div>
   </header>
 
-  <div class="scroll-outer">
+  <!-- SCROLL -->
+  <div class="scroll-outer" id="scrollOuter">
 
     <!-- Top roller -->
-    <div class="scroll-roller"></div>
+    <div class="scroll-roller" id="topRoller"></div>
 
-    <!-- Parchment body -->
-    <div class="scroll-body">
-
-      <div class="scroll-ornament">
-        <div class="orn-line">
-          <span class="orn-heart">❧</span>
-          <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.78rem; color:rgba(130,80,45,0.45); letter-spacing:0.2em;">a letter from the heart</span>
-          <span class="orn-heart">❧</span>
-        </div>
-      </div>
-
-      <span class="dear-line">My Mayalau,</span>
-
-      <div class="letter-body">
-
-        <p>I am sorry. When you cut that call yesterday when I was busy at first, I didnt realise that you cut it. Cz the phone didnt gimme any vibration. When I saw it I thought you were busy or on a phone call with someone. That's why you cut the call. <em class="warm">Normally you do not cut.</em></p>
-
-        <p>And I am not sure if you were calling me when we were on the call. maybe I didn't hear that you were calling me. And I didnt call you instantly back after knowing that you cut the call. Frst of all I thought you are busy on phone. And 2nd I didnt want to call you and say nothing and talking to other people and keeping you hold.</p>
-
-        <div class="divider">♥ &nbsp; ♥ &nbsp; ♥</div>
-
-        <p>I know I do make a lot of mistakes. But <em class="warm">I want to be better for you.</em> I want to know the way you want me to be. If you do not say that why are you upset how can I even fix myself. I also know that you must be tired of explaining me all those things. Bt I am trying. <strong class="soul">For you. For us.</strong></p>
-
-        <p>Ik I am not capable to treat you well. But I will try my best. I never want to hurt you. I want to give you all the happiness that you deserve. I know I mess up a lot of times bt <em class="warm">my intention is never to hurt you.</em></p>
-
-        <div class="divider">♥ &nbsp; ♥ &nbsp; ♥</div>
-
-        <p>And when I do mess up please don't go silent on me. Please. Fight with me. Yell at me. Curse me if you have to. But please, please talk to me. I can handle your anger I can take your frustration but your silence? <strong class="soul">No. I cant not take it.</strong> It burns my heart when you want to stop talking to me.</p>
-
-        <p>Please forgive me. I will try to understand you more from now on.</p>
-
-      </div>
-
-      <div class="sign-off">
-        <span class="closing">with all the love I carry,</span>
-        <span class="name">Mayalau 💕</span>
-        <span class="love-line">I love you soo much.</span>
-      </div>
+    <!-- Tap hint -->
+    <div class="tap-hint" id="tapHint">
+      <span>✦ touch to open ✦</span>
     </div>
 
+    <!-- Expanding track -->
+    <div class="scroll-track" id="scrollTrack">
+      <div class="scroll-body">
+        <div class="scroll-inner">
+
+          <div class="scroll-ornament">
+            <div class="orn-line">
+              <span class="orn-heart">❧</span>
+              <span class="orn-text">a letter from the heart</span>
+              <span class="orn-heart">❧</span>
+            </div>
+          </div>
+
+          <span class="dear-line">My Mayalu,</span>
+
+          <div class="letter-body">
+
+            <p>I am sorry. When you cut that call yesterday when I was busy at first, I didnt realise that you cut it. Cz the phone didnt gimme any vibration. When I saw it I thought you were busy or on a phone call with someone. That's why you cut the call. <em class="warm">Normally you do not cut.</em></p>
+
+            <p>And I am not sure if you were calling me when we were on the call. maybe I didn't hear that you were calling me. And I didnt call you instantly back after knowing that you cut the call. Frst of all I thought you are busy on phone. And 2nd I didnt want to call you and say nothing and talking to other people and keeping you hold.</p>
+
+            <div class="divider">♥ &nbsp; ♥ &nbsp; ♥</div>
+
+            <p>I know I do make a lot of mistakes. But <em class="warm">I want to be better for you.</em> I want to know the way you want me to be. If you do not say that why are you upset how can I even fix myself. I also know that you must be tired of explaining me all those things. Bt I am trying. <strong class="soul">For you. For us.</strong></p>
+
+            <p>Ik I am not capable to treat you well. But I will try my best. I never want to hurt you. I want to give you all the happiness that you deserve. I know I mess up a lot of times bt <em class="warm">my intention is never to hurt you.</em></p>
+
+            <div class="divider">♥ &nbsp; ♥ &nbsp; ♥</div>
+
+            <p>And when I do mess up please don't go silent on me. Please. Fight with me. Yell at me. Curse me if you have to. But please, please talk to me. I can handle your anger I can take your frustration but your silence? <strong class="soul">No. I cant not take it.</strong> It burns my heart when you want to stop talking to me.</p>
+
+            <p>Please forgive me. I will try to understand you more from now on.</p>
+
+          </div>
+
+          <div class="sign-off">
+            <span class="closing">with all the love I carry,</span>
+            <span class="name">Mayalu 💕</span>
+            <span class="love-line">I love you soo much.</span>
+          </div>
+
+        </div><!-- /.scroll-inner -->
+      </div><!-- /.scroll-body -->
+    </div><!-- /.scroll-track -->
+
     <!-- Bottom roller -->
-    <div class="scroll-roller scroll-roller-bottom"></div>
+    <div class="scroll-roller scroll-roller-bottom" id="bottomRoller"></div>
 
+  </div><!-- /.scroll-outer -->
+
+  <!-- BIG ROSE -->
+  <div class="rose-footer">
+    <span class="rose-emoji">🌹</span>
+    <span class="rose-caption">for you, always</span>
   </div>
 
-  <div class="footer-glow">
-    <p>forever yours, always trying 🕯️</p>
-  </div>
+</div><!-- /.wrapper -->
 
-</div>
+<!-- ============================================================
+     SCROLL OPEN INTERACTION
+     ============================================================ -->
+<script>
+(function () {
+  const outer  = document.getElementById('scrollOuter');
+  const track  = document.getElementById('scrollTrack');
+  const hint   = document.getElementById('tapHint');
+  let opened   = false;
+
+  function openScroll() {
+    if (opened) return;
+    opened = true;
+
+    hint.classList.add('hidden');
+    track.classList.add('opened');
+    outer.classList.add('opened');
+
+    // hide hint fully after fade
+    setTimeout(() => hint.style.display = 'none', 700);
+  }
+
+  outer.addEventListener('click',      openScroll);
+  outer.addEventListener('touchstart', openScroll, { passive: true });
+})();
+</script>
 
 <!-- ============================================================
      PARTICLE SYSTEM — Rose petals & golden embers
      ============================================================ -->
 <script>
-(function() {
+(function () {
   const canvas = document.getElementById('canvas');
   const ctx    = canvas.getContext('2d');
 
@@ -491,89 +607,67 @@ strong.soul {
   resize();
   window.addEventListener('resize', resize);
 
-  /* ---- Particle definitions ---- */
-  const PETAL_EMOJIS = ['🌸','🌷','💕','🌹','💗','✨','💖'];
+  const EMOJIS = ['🌸','🌷','💕','🌹','💗','✨','💖'];
 
   class Particle {
     constructor(type) {
-      this.type  = type; // 'petal' | 'ember'
+      this.type = type;
       this.reset(true);
     }
-
     reset(init) {
       const W = canvas.width, H = canvas.height;
-      this.x    = Math.random() * W;
-      this.y    = init ? Math.random() * H : -40;
-      this.size = this.type === 'ember'
-        ? 1.5 + Math.random() * 2.5
-        : 10  + Math.random() * 14;
-      this.speedY = this.type === 'ember'
-        ? -(0.4 + Math.random() * 0.8)  // rise up
-        :   0.4 + Math.random() * 0.9;  // fall down
+      this.x = Math.random() * W;
+      this.y = init ? Math.random() * H : -40;
+      this.size   = this.type === 'ember' ? 1.5 + Math.random() * 2.5 : 10 + Math.random() * 14;
+      this.speedY = this.type === 'ember' ? -(0.4 + Math.random() * 0.8) : 0.4 + Math.random() * 0.9;
       this.speedX = (Math.random() - 0.5) * 0.6;
       this.drift  = (Math.random() - 0.5) * 0.015;
       this.angle  = Math.random() * Math.PI * 2;
       this.spin   = (Math.random() - 0.5) * 0.03;
-      this.alpha  = this.type === 'ember'
-        ? 0.4 + Math.random() * 0.6
-        : 0.15 + Math.random() * 0.55;
+      this.alpha  = this.type === 'ember' ? 0.4 + Math.random() * 0.6 : 0.15 + Math.random() * 0.55;
       this.fade   = 0.002 + Math.random() * 0.003;
-      this.emoji  = PETAL_EMOJIS[Math.floor(Math.random() * PETAL_EMOJIS.length)];
-
-      /* ember color */
+      this.emoji  = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
       const hue   = 20 + Math.random() * 30;
       const light = 55 + Math.random() * 25;
-      this.color  = `hsl(${hue}, 90%, ${light}%)`;
+      this.color  = `hsl(${hue},90%,${light}%)`;
     }
-
     update() {
-      this.x     += this.speedX;
-      this.y     += this.speedY;
-      this.speedX += this.drift;
-      this.angle += this.spin;
-
+      this.x += this.speedX; this.y += this.speedY;
+      this.speedX += this.drift; this.angle += this.spin;
       if (this.type === 'petal') {
         this.alpha -= this.fade * 0.5;
         if (this.y > canvas.height + 50 || this.alpha <= 0) this.reset(false);
       } else {
-        this.alpha -= this.fade;
-        this.size  *= 0.998;
+        this.alpha -= this.fade; this.size *= 0.998;
         if (this.y < -30 || this.alpha <= 0 || this.size < 0.3) this.reset(false);
       }
     }
-
     draw() {
       ctx.save();
       ctx.globalAlpha = Math.max(0, this.alpha);
-
-      if (this.type === 'petal') {
+      if (this.type !== 'ember') {
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
         ctx.font = `${this.size}px serif`;
-        ctx.textAlign    = 'center';
-        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.fillText(this.emoji, 0, 0);
       } else {
-        /* Ember — glowing dot */
-        const grd = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 2.5);
-        grd.addColorStop(0,   this.color);
-        grd.addColorStop(0.4, this.color.replace(')', ', 0.6)').replace('hsl', 'hsla'));
-        grd.addColorStop(1,   'rgba(0,0,0,0)');
+        const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 2.5);
+        g.addColorStop(0, this.color);
+        g.addColorStop(0.4, this.color.replace('hsl', 'hsla').replace(')', ',0.6)'));
+        g.addColorStop(1, 'rgba(0,0,0,0)');
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size * 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = grd;
-        ctx.fill();
+        ctx.fillStyle = g; ctx.fill();
       }
       ctx.restore();
     }
   }
 
-  /* ---- Init pool ---- */
   const particles = [];
   for (let i = 0; i < 22; i++) particles.push(new Particle('petal'));
   for (let i = 0; i < 18; i++) particles.push(new Particle('ember'));
 
-  /* ---- Loop ---- */
   function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach(p => { p.update(); p.draw(); });
