@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Well Soon, My Mayalu 💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Caveat:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ========= CSS CUSTOM PROPERTIES ========= */
+    :root {
+      --cream:       #FFF8F0;
+      --soft-pink:   #FFE4EF;
+      --blush:       #F9C8D9;
+      --rose:        #E8789A;
+      --deep-rose:   #C0446A;
+      --burgundy:    #7D1D3F;
+      --rose-gold:   #C9747A;
+      --amber:       #F2A65A;
+      --warm-amber:  #E08840;
+      --gold:        #D4A017;
+      --muted-gold:  #C8936A;
+      --peach:       #FFD5BA;
+      --lavender:    #F0E6FF;
+      --mauve:       #D4A5C9;
+      --text-dark:   #3A1520;
+      --text-mid:    #6B3047;
+      --text-soft:   #A06070;
+    }
+
+    /* ========= RESET & BASE ========= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: #1A0810;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text-dark);
+    }
+
+    /* ========= AMBIENT BACKGROUND ========= */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: radial-gradient(ellipse at 20% 30%, #3D0B22 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 70%, #2A0A1A 0%, transparent 60%),
+                  radial-gradient(ellipse at 50% 50%, #1F0612 0%, #0D0408 100%);
+    }
+
+    /* ========= FAIRY LIGHTS STRIP ========= */
+    .fairy-lights {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      display: flex;
+      justify-content: space-around;
+      padding: 0 20px;
+      pointer-events: none;
+    }
+
+    .fairy-wire {
+      position: absolute;
+      top: 10px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(200,150,80,0.3), transparent);
+    }
+
+    .fairy-bulb {
+      position: relative;
+      top: 6px;
+      width: 10px;
+      height: 14px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: fairy-glow 3s ease-in-out infinite;
+    }
+
+    .fairy-bulb::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      background: rgba(200,150,80,0.6);
+      border-radius: 1px 1px 0 0;
+    }
+
+    .fairy-bulb:nth-child(3n+1)  { background: #FFD3A0; box-shadow: 0 0 8px 4px rgba(255,180,80,0.6); animation-delay: 0s; }
+    .fairy-bulb:nth-child(3n+2)  { background: #FFB3C8; box-shadow: 0 0 8px 4px rgba(255,100,150,0.6); animation-delay: 0.7s; }
+    .fairy-bulb:nth-child(3n+3)  { background: #FFE8B0; box-shadow: 0 0 8px 4px rgba(255,200,80,0.6); animation-delay: 1.4s; }
+
+    @keyframes fairy-glow {
+      0%, 100% { opacity: 1; }
+      45%       { opacity: 0.25; }
+      55%       { opacity: 0.4; }
+    }
+
+    /* ========= PAGE WRAPPER ========= */
+    .page-wrapper {
+      position: relative;
+      z-index: 5;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: clamp(50px, 8vw, 80px) clamp(16px, 4vw, 40px) 60px;
+    }
+
+    /* ========= HERO HEADER ========= */
+    .hero-header {
+      text-align: center;
+      margin-bottom: clamp(32px, 5vw, 56px);
+      animation: fade-down 1.2s ease-out both;
+    }
+
+    .hero-header .subtitle {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(16px, 3vw, 22px);
+      color: var(--amber);
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    .hero-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 6vw, 64px);
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.15;
+      text-shadow: 0 0 40px rgba(230,120,154,0.4);
+    }
+
+    .hero-header h1 span {
+      color: var(--blush);
+      display: inline-block;
+      animation: name-glow 4s ease-in-out infinite;
+    }
+
+    @keyframes name-glow {
+      0%, 100% { text-shadow: 0 0 20px rgba(249,200,217,0.5); }
+      50%       { text-shadow: 0 0 50px rgba(249,200,217,0.9), 0 0 80px rgba(200,80,120,0.4); }
+    }
+
+    .hero-header .tagline {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(18px, 2.5vw, 26px);
+      color: var(--peach);
+      margin-top: 12px;
+      opacity: 0.85;
+    }
+
+    @keyframes fade-down {
+      from { opacity: 0; transform: translateY(-30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========= MAIN GRID ========= */
+    .main-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
+      gap: clamp(20px, 3vw, 36px);
+      align-items: start;
+    }
+
+    /* ========= ROOM SCENE CARD ========= */
+    .room-card {
+      background: linear-gradient(145deg, #2A0E1A, #1A0810);
+      border: 1px solid rgba(200,116,122,0.25);
+      border-radius: 24px;
+      padding: clamp(20px, 3vw, 32px);
+      position: relative;
+      overflow: hidden;
+      animation: fade-up 1.2s 0.2s ease-out both;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,200,180,0.08);
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --------- RAIN WINDOW --------- */
+    .window-scene {
+      width: 100%;
+      height: clamp(160px, 25vw, 220px);
+      background: linear-gradient(180deg, #0D1B2E 0%, #162030 50%, #1B2D42 100%);
+      border-radius: 16px;
+      border: 2px solid rgba(180,200,255,0.15);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: inset 0 0 40px rgba(0,0,20,0.8);
+    }
+
+    /* Window pane crosses */
+    .window-scene::before,
+    .window-scene::after {
+      content: '';
+      position: absolute;
+      background: rgba(180,200,255,0.12);
+      z-index: 5;
+    }
+    .window-scene::before { width: 3px; height: 100%; left: 50%; top: 0; }
+    .window-scene::after  { height: 3px; width: 100%; top: 50%; left: 0; }
+
+    /* Moon */
+    .moon {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle at 35% 35%, #FFF9E0, #F0D070);
+      border-radius: 50%;
+      top: 18px;
+      right: 30px;
+      box-shadow: 0 0 20px rgba(255,220,80,0.5), 0 0 50px rgba(255,200,60,0.2);
+      z-index: 2;
+    }
+
+    /* Distant trees */
+    .trees {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background: linear-gradient(180deg, transparent, #0A1820);
+      z-index: 3;
+    }
+
+    /* Rain drops container */
+    .rain-container {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      overflow: hidden;
+    }
+
+    .raindrop {
+      position: absolute;
+      top: -20px;
+      width: 1.5px;
+      border-radius: 2px;
+      background: linear-gradient(180deg, transparent, rgba(160,200,255,0.7));
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(240px); opacity: 0; }
+    }
+
+    /* Window reflection glow */
+    .window-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(100,150,255,0.05), transparent 60%);
+      z-index: 1;
+    }
+
+    /* --------- TABLE & TEA --------- */
+    .table-scene {
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+      padding: 0 8px;
+    }
+
+    .wooden-table {
+      flex: 1;
+      height: 8px;
+      background: linear-gradient(90deg, #5C2A0A, #7A3B12, #5C2A0A);
+      border-radius: 4px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .wooden-table::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 20px;
+      background: linear-gradient(180deg, #5C2A0A, #3A1806);
+      border-radius: 0 0 4px 4px;
+    }
+
+    /* Mug */
+    .mug-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .steam {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 4px;
+      height: 30px;
+      align-items: flex-end;
+    }
+
+    .steam-line {
+      width: 3px;
+      height: 22px;
+      background: rgba(255,240,220,0.5);
+      border-radius: 3px;
+      transform-origin: bottom center;
+      animation: steam-wisp 2.5s ease-in-out infinite;
+    }
+
+    .steam-line:nth-child(1) { animation-delay: 0s;   height: 18px; }
+    .steam-line:nth-child(2) { animation-delay: 0.5s; height: 26px; }
+    .steam-line:nth-child(3) { animation-delay: 1s;   height: 20px; }
+
+    @keyframes steam-wisp {
+      0%   { opacity: 0;   transform: scaleX(1) translateY(0) rotate(0deg); }
+      30%  { opacity: 0.6; transform: scaleX(1.4) translateY(-6px) rotate(-3deg); }
+      60%  { opacity: 0.3; transform: scaleX(0.8) translateY(-14px) rotate(4deg); }
+      100% { opacity: 0;   transform: scaleX(1) translateY(-22px) rotate(-2deg); }
+    }
+
+    .mug {
+      width: 48px;
+      height: 50px;
+      background: linear-gradient(145deg, #F5E0C8, #E8C8A0);
+      border-radius: 6px 6px 10px 10px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    /* Mug handle */
+    .mug::before {
+      content: '';
+      position: absolute;
+      right: -14px;
+      top: 10px;
+      width: 14px;
+      height: 22px;
+      border: 3px solid #E8C8A0;
+      border-left: none;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* Tea inside */
+    .mug::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 4px;
+      right: 4px;
+      height: 10px;
+      background: radial-gradient(ellipse, #C06030, #8B3A18);
+      border-radius: 50%;
+    }
+
+    /* Mug decoration heart */
+    .mug-heart {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      color: var(--rose);
+    }
+
+    /* --------- CARD LABEL --------- */
+    .card-label {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--blush);
+      font-style: italic;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .card-sublabel {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(14px, 2vw, 17px);
+      color: var(--amber);
+      text-align: center;
+      margin-top: 6px;
+      opacity: 0.8;
+    }
+
+    /* ========= BOUQUET + HUG CARD ========= */
+    .bouquet-hug-card {
+      background: linear-gradient(145deg, #2A0E1A, #1A0810);
+      border: 1px solid rgba(200,116,122,0.25);
+      border-radius: 24px;
+      padding: clamp(20px, 3vw, 32px);
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      animation: fade-up 1.2s 0.4s ease-out both;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,200,180,0.08);
+    }
+
+    /* --------- HUG BUTTON --------- */
+    .hug-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hug-button {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(13px, 2vw, 16px);
+      font-style: italic;
+      color: var(--cream);
+      background: linear-gradient(135deg, var(--deep-rose), var(--burgundy), var(--deep-rose));
+      background-size: 200% 200%;
+      border: none;
+      border-radius: 50px;
+      padding: clamp(14px, 2.5vw, 18px) clamp(24px, 4vw, 40px);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      animation: pulse-button 2.8s ease-in-out infinite, bg-shift 5s ease infinite;
+      box-shadow:
+        0 0 0 6px rgba(200,68,106,0.15),
+        0 0 0 12px rgba(200,68,106,0.08),
+        0 8px 30px rgba(120,30,60,0.6),
+        inset 0 1px 0 rgba(255,200,210,0.25),
+        inset 0 -2px 0 rgba(0,0,0,0.3);
+      transition: transform 0.1s ease;
+      letter-spacing: 0.02em;
+      z-index: 1;
+      white-space: nowrap;
+    }
+
+    .hug-button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent 50%);
+      border-radius: 50px;
+    }
+
+    @keyframes pulse-button {
+      0%, 100% { box-shadow: 0 0 0 6px rgba(200,68,106,0.15), 0 0 0 12px rgba(200,68,106,0.08), 0 8px 30px rgba(120,30,60,0.6), inset 0 1px 0 rgba(255,200,210,0.25), inset 0 -2px 0 rgba(0,0,0,0.3); }
+      50%       { box-shadow: 0 0 0 10px rgba(200,68,106,0.22), 0 0 0 20px rgba(200,68,106,0.05), 0 12px 40px rgba(120,30,60,0.8), inset 0 1px 0 rgba(255,200,210,0.25), inset 0 -2px 0 rgba(0,0,0,0.3); }
+    }
+
+    @keyframes bg-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50%       { background-position: 100% 50%; }
+    }
+
+    .hug-button:hover  { transform: translateY(-3px) scale(1.03); }
+    .hug-button:active { transform: scale(0.97); }
+
+    .hug-hint {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(13px, 2vw, 15px);
+      color: var(--text-soft);
+      text-align: center;
+    }
+
+    /* --------- PARTICLES --------- */
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      animation: float-up var(--dur, 1.8s) ease-out forwards;
+      font-size: var(--size, 18px);
+    }
+
+    @keyframes float-up {
+      0%   { transform: translate(0, 0) scale(0.5) rotate(0deg);   opacity: 1; }
+      60%  { opacity: 1; }
+      100% { transform: translate(var(--tx, 0px), var(--ty, -120px)) scale(1.2) rotate(var(--rot, 30deg)); opacity: 0; }
+    }
+
+    /* --------- BOUQUET SECTION --------- */
+    .bouquet-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bouquet-label {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(15px, 2.2vw, 18px);
+      color: var(--blush);
+      font-style: italic;
+      text-align: center;
+    }
+
+    .flowers-and-vase {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* Flowers row */
+    .flowers-row {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: clamp(16px, 4vw, 32px);
+      padding-bottom: 4px;
+    }
+
+    /* --------- VASE --------- */
+    .vase {
+      width: 90px;
+      height: 70px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(200,180,220,0.08));
+      backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(220,190,210,0.35);
+      clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+      position: relative;
+      box-shadow: inset 0 0 20px rgba(255,200,220,0.1);
+    }
+
+    .vase-shine {
+      position: absolute;
+      left: 15%;
+      top: 10%;
+      width: 20%;
+      height: 60%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.3), transparent);
+      border-radius: 50%;
+    }
+
+    /* --------- FLOWER WRAPPER --------- */
+    .flower-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      padding-top: 10px;
+    }
+
+    .flower-wrapper .stem {
+      width: 3px;
+      height: clamp(40px, 7vw, 60px);
+      background: linear-gradient(180deg, #4A7A2A, #2E4F18);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    /* Leaf on stem */
+    .flower-wrapper .stem::before {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 8px;
+      background: #3D6A22;
+      border-radius: 50% 0 50% 0;
+      top: 30%;
+      left: 1px;
+      transform: rotate(-30deg);
+    }
+
+    /* Tooltip */
+    .flower-tooltip {
+      position: absolute;
+      bottom: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%) scale(0.85);
+      background: linear-gradient(135deg, rgba(42,14,26,0.97), rgba(60,20,38,0.97));
+      border: 1px solid rgba(200,116,122,0.4);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-family: 'Caveat', cursive;
+      font-size: clamp(12px, 1.8vw, 14px);
+      color: var(--cream);
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      z-index: 50;
+      max-width: 200px;
+      white-space: normal;
+      text-align: center;
+      width: max-content;
+      max-width: min(200px, 80vw);
+    }
+
+    .flower-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: rgba(200,116,122,0.4);
+    }
+
+    .flower-wrapper:hover .flower-tooltip,
+    .flower-wrapper.bloomed .flower-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    /* ====== ROSE CSS ART ====== */
+    .rose-bud,
+    .peony-bud,
+    .gerbera-bud {
+      position: relative;
+      transition: transform 0.5s ease;
+    }
+
+    /* -- ROSE -- */
+    .rose-bud {
+      width: 36px;
+      height: 36px;
+    }
+
+    .rose-bud .petal {
+      position: absolute;
+      border-radius: 50% 0 50% 0;
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .rose-bud .p1 { width: 24px; height: 24px; background: #8B1A2E; top: 6px; left: 6px; transform-origin: center; }
+    .rose-bud .p2 { width: 28px; height: 20px; background: #A82040; top: 8px; left: 4px; border-radius: 50% 0; transform-origin: bottom right; }
+    .rose-bud .p3 { width: 20px; height: 26px; background: #8B1A2E; top: 5px; left: 8px; border-radius: 0 50%; transform-origin: bottom left; }
+    .rose-bud .center { position: absolute; width: 12px; height: 12px; background: radial-gradient(circle, #C0304A, #8B1A2E); border-radius: 50%; top: 12px; left: 12px; }
+
+    .flower-wrapper:hover .rose-bud .p1,
+    .flower-wrapper.bloomed .rose-bud .p1 {
+      background: #E8789A;
+      width: 34px; height: 34px;
+      top: 1px; left: 1px;
+      transform: rotate(-15deg) scale(1.15);
+      box-shadow: 0 0 12px rgba(232,120,154,0.5);
+    }
+    .flower-wrapper:hover .rose-bud .p2,
+    .flower-wrapper.bloomed .rose-bud .p2 {
+      background: #D45A7A;
+      width: 36px; height: 30px;
+      top: 4px; left: -2px;
+      transform: rotate(20deg) scale(1.2);
+    }
+    .flower-wrapper:hover .rose-bud .p3,
+    .flower-wrapper.bloomed .rose-bud .p3 {
+      background: #C04060;
+      width: 28px; height: 36px;
+      top: 0px; left: 5px;
+      transform: rotate(-20deg) scale(1.15);
+    }
+    .flower-wrapper:hover .rose-bud .center,
+    .flower-wrapper.bloomed .rose-bud .center {
+      background: radial-gradient(circle, #FFD0DC, #E8789A);
+      box-shadow: 0 0 10px rgba(255,180,200,0.7);
+    }
+
+    /* -- PEONY -- */
+    .peony-bud {
+      width: 44px;
+      height: 44px;
+    }
+
+    .peony-bud .petal {
+      position: absolute;
+      border-radius: 50%;
+      transition: all 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .peony-bud .p1  { width: 20px; height: 20px; background: #7A2050; top: 12px; left: 12px; }
+    .peony-bud .p2  { width: 16px; height: 22px; background: #662040; top: 11px; left: 14px; border-radius: 50% 50% 40% 60%; }
+    .peony-bud .p3  { width: 16px; height: 16px; background: #7A2050; top: 14px; left: 12px; }
+    .peony-bud .c   { position: absolute; width: 10px; height: 10px; background: radial-gradient(circle, #FFBCD4, #D45A8A); border-radius: 50%; top: 17px; left: 17px; }
+
+    .flower-wrapper:hover .peony-bud .p1,
+    .flower-wrapper.bloomed .peony-bud .p1 {
+      width: 36px; height: 36px; top: 4px; left: 4px;
+      background: #F0A0C0;
+      transform: rotate(0deg);
+      box-shadow: 0 0 14px rgba(240,160,192,0.5);
+    }
+    .flower-wrapper:hover .peony-bud .p2,
+    .flower-wrapper.bloomed .peony-bud .p2 {
+      width: 30px; height: 40px;
+      top: 2px; left: 7px;
+      background: #E880B0;
+      transform: rotate(-30deg);
+    }
+    .flower-wrapper:hover .peony-bud .p3,
+    .flower-wrapper.bloomed .peony-bud .p3 {
+      width: 30px; height: 30px;
+      top: 7px; left: 7px;
+      background: #DA70AA;
+      transform: rotate(30deg);
+    }
+
+    /* Extra petals show on bloom */
+    .peony-bud .p4, .peony-bud .p5 {
+      width: 0; height: 0;
+      opacity: 0;
+      transition: all 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+      background: #E880B0;
+      border-radius: 50%;
+      position: absolute;
+    }
+    .peony-bud .p4 { top: 20px; left: 4px; }
+    .peony-bud .p5 { top: 4px; left: 20px; }
+
+    .flower-wrapper:hover .peony-bud .p4,
+    .flower-wrapper.bloomed .peony-bud .p4 {
+      width: 28px; height: 24px; top: 12px; left: -2px; opacity: 1; transform: rotate(-20deg);
+    }
+    .flower-wrapper:hover .peony-bud .p5,
+    .flower-wrapper.bloomed .peony-bud .p5 {
+      width: 28px; height: 24px; top: -2px; left: 10px; opacity: 1; transform: rotate(15deg);
+    }
+    .flower-wrapper:hover .peony-bud .c,
+    .flower-wrapper.bloomed .peony-bud .c {
+      background: radial-gradient(circle, #FFF0F8, #FFBCD4);
+      width: 16px; height: 16px;
+      top: 14px; left: 14px;
+      box-shadow: 0 0 12px rgba(255,180,220,0.7);
+    }
+
+    /* -- GERBERA DAISY -- */
+    .gerbera-bud {
+      width: 44px;
+      height: 44px;
+    }
+
+    .gerbera-bud .petal {
+      position: absolute;
+      width: 10px;
+      height: 18px;
+      background: #B83A0A;
+      border-radius: 50% 50% 30% 30%;
+      top: 4px; left: 17px;
+      transform-origin: center bottom;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .gerbera-bud .p1  { transform: rotate(0deg);    }
+    .gerbera-bud .p2  { transform: rotate(45deg);   }
+    .gerbera-bud .p3  { transform: rotate(90deg);   }
+    .gerbera-bud .p4  { transform: rotate(135deg);  }
+    .gerbera-bud .p5  { transform: rotate(180deg);  }
+    .gerbera-bud .p6  { transform: rotate(225deg);  }
+    .gerbera-bud .p7  { transform: rotate(270deg);  }
+    .gerbera-bud .p8  { transform: rotate(315deg);  }
+
+    .gerbera-bud .center {
+      position: absolute;
+      width: 18px; height: 18px;
+      background: radial-gradient(circle, #3A1A08, #5A2A10);
+      border-radius: 50%;
+      top: 13px; left: 13px;
+    }
+
+    .flower-wrapper:hover .gerbera-bud .petal,
+    .flower-wrapper.bloomed .gerbera-bud .petal {
+      background: #FF8040;
+      height: 24px; width: 12px;
+      top: 0px; left: 16px;
+      box-shadow: 0 0 8px rgba(255,128,64,0.4);
+    }
+
+    .flower-wrapper:hover .gerbera-bud .center,
+    .flower-wrapper.bloomed .gerbera-bud .center {
+      background: radial-gradient(circle, #FFC060, #FF8020);
+      box-shadow: 0 0 14px rgba(255,180,60,0.6);
+      width: 20px; height: 20px;
+      top: 12px; left: 12px;
+    }
+
+    /* ========= COMFORT KIT SECTION ========= */
+    .comfort-section {
+      grid-column: 1 / -1;
+      animation: fade-up 1.2s 0.6s ease-out both;
+    }
+
+    .comfort-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 4vw, 36px);
+      font-style: italic;
+      color: var(--cream);
+      text-align: center;
+      margin-bottom: 8px;
+      text-shadow: 0 0 30px rgba(200,116,122,0.3);
+    }
+
+    .comfort-subtitle {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(15px, 2.5vw, 20px);
+      color: var(--amber);
+      text-align: center;
+      margin-bottom: clamp(20px, 3vw, 32px);
+      opacity: 0.85;
+    }
+
+    /* --------- CARD FLIP GRID --------- */
+    .kit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+      gap: clamp(16px, 2.5vw, 24px);
+    }
+
+    .kit-card {
+      height: clamp(180px, 25vw, 220px);
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .kit-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+      border-radius: 20px;
+    }
+
+    .kit-card.flipped .kit-inner {
+      transform: rotateY(180deg);
+    }
+
+    .kit-front,
+    .kit-back {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid rgba(200,116,122,0.2);
+    }
+
+    /* Front faces – each bottle style */
+    .kit-front {
+      background: linear-gradient(145deg, #2A0E1A, #1F0B14);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+
+    .kit-front .bottle-icon {
+      width: 52px;
+      height: 68px;
+      position: relative;
+      margin-bottom: 14px;
+    }
+
+    /* CSS potion bottle */
+    .bottle-body {
+      width: 36px;
+      height: 48px;
+      border-radius: 4px 4px 14px 14px;
+      position: absolute;
+      bottom: 0;
+      left: 8px;
+      border: 1.5px solid;
+    }
+
+    .bottle-neck {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px 4px 0 0;
+      position: absolute;
+      bottom: 46px;
+      left: 18px;
+      border: 1.5px solid;
+      border-bottom: none;
+    }
+
+    .bottle-cork {
+      width: 18px;
+      height: 8px;
+      border-radius: 3px;
+      position: absolute;
+      bottom: 60px;
+      left: 17px;
+    }
+
+    .bottle-shine {
+      position: absolute;
+      width: 6px;
+      height: 24px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 3px;
+      bottom: 14px;
+      left: 17px;
+    }
+
+    /* Bottle color variants */
+    .kit-card:nth-child(1) .bottle-body  { background: rgba(180,60,80,0.25);  border-color: rgba(220,100,120,0.5); }
+    .kit-card:nth-child(1) .bottle-neck  { background: rgba(180,60,80,0.15);  border-color: rgba(220,100,120,0.4); }
+    .kit-card:nth-child(1) .bottle-cork  { background: #8B6040; }
+    .kit-card:nth-child(1) .bottle-body  { box-shadow: inset 0 0 20px rgba(220,60,80,0.3), 0 0 20px rgba(180,40,70,0.2); }
+
+    .kit-card:nth-child(2) .bottle-body  { background: rgba(60,100,180,0.25);  border-color: rgba(100,140,220,0.5); }
+    .kit-card:nth-child(2) .bottle-neck  { background: rgba(60,100,180,0.15);  border-color: rgba(100,140,220,0.4); }
+    .kit-card:nth-child(2) .bottle-cork  { background: #7A6040; }
+    .kit-card:nth-child(2) .bottle-body  { box-shadow: inset 0 0 20px rgba(60,100,200,0.3), 0 0 20px rgba(40,80,180,0.2); }
+
+    .kit-card:nth-child(3) .bottle-body  { background: rgba(160,80,180,0.25);  border-color: rgba(200,120,220,0.5); }
+    .kit-card:nth-child(3) .bottle-neck  { background: rgba(160,80,180,0.15);  border-color: rgba(200,120,220,0.4); }
+    .kit-card:nth-child(3) .bottle-cork  { background: #8A6540; }
+    .kit-card:nth-child(3) .bottle-body  { box-shadow: inset 0 0 20px rgba(160,80,200,0.3), 0 0 20px rgba(140,60,180,0.2); }
+
+    .kit-card:nth-child(4) .bottle-body  { background: rgba(180,140,40,0.25);  border-color: rgba(220,180,60,0.5); }
+    .kit-card:nth-child(4) .bottle-neck  { background: rgba(180,140,40,0.15);  border-color: rgba(220,180,60,0.4); }
+    .kit-card:nth-child(4) .bottle-cork  { background: #7A5A30; }
+    .kit-card:nth-child(4) .bottle-body  { box-shadow: inset 0 0 20px rgba(200,160,40,0.3), 0 0 20px rgba(160,130,30,0.2); }
+
+    .kit-front-label {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(12px, 1.8vw, 14px);
+      font-style: italic;
+      color: var(--blush);
+      line-height: 1.4;
+    }
+
+    .kit-front-hint {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(11px, 1.6vw, 13px);
+      color: var(--amber);
+      margin-top: 6px;
+      opacity: 0.7;
+    }
+
+    /* Back faces */
+    .kit-back {
+      background: linear-gradient(145deg, #3A1220, #280C18);
+      transform: rotateY(180deg);
+      border-color: rgba(200,116,122,0.35);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    }
+
+    .kit-back-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .kit-back-text {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(14px, 2.2vw, 16px);
+      color: var(--cream);
+      line-height: 1.6;
+      opacity: 0.92;
+    }
+
+    .kit-back-close {
+      margin-top: 12px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 11px;
+      color: var(--text-soft);
+      opacity: 0.6;
+    }
+
+    /* ========= FOOTER NOTE ========= */
+    .footer-note {
+      text-align: center;
+      margin-top: clamp(40px, 6vw, 60px);
+      animation: fade-up 1.2s 0.8s ease-out both;
+    }
+
+    .footer-note p {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(16px, 2.5vw, 22px);
+      color: var(--blush);
+      line-height: 1.7;
+      opacity: 0.85;
+    }
+
+    .footer-note .signature {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 3vw, 26px);
+      font-style: italic;
+      color: var(--amber);
+      margin-top: 14px;
+    }
+
+    /* ========= DIVIDER ========= */
+    .divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,116,122,0.5), transparent);
+      margin: 0 auto clamp(16px, 2.5vw, 24px);
+    }
+
+    /* ========= AMBIENT CANDLE FLICKER ========= */
+    .candle-glow {
+      position: fixed;
+      bottom: 60px;
+      right: 40px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(250,180,80,0.15), transparent 70%);
+      border-radius: 50%;
+      animation: flicker 3s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      30%       { opacity: 0.5; transform: scale(0.95); }
+      60%       { opacity: 1;   transform: scale(1.08); }
+    }
+
+    /* ========= SCROLL FADE IN ========= */
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========= RESPONSIVE ========= */
+    @media (max-width: 600px) {
+      .flowers-row { gap: 12px; }
+      .flower-wrapper .stem { height: 40px; }
+      .candle-glow { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== AMBIENT BACKGROUND ===== -->
+  <div class="ambient-bg" aria-hidden="true"></div>
+  <div class="candle-glow" aria-hidden="true"></div>
+
+  <!-- ===== FAIRY LIGHTS ===== -->
+  <div class="fairy-lights" id="fairy-lights" aria-hidden="true">
+    <div class="fairy-wire"></div>
+    <!-- Bulbs injected by JS -->
+  </div>
+
+  <!-- ===== PAGE WRAPPER ===== -->
+  <main class="page-wrapper">
+
+    <!-- ===== HERO HEADER ===== -->
+    <header class="hero-header">
+      <p class="subtitle">✦ a little something, made with all my love ✦</p>
+      <h1>Get Well Soon, <span>Prajala</span> 🌸</h1>
+      <p class="tagline">You are so loved, Mayalu — rest well for me, okay? 💕</p>
+    </header>
+
+    <!-- ===== MAIN GRID ===== -->
+    <div class="main-grid">
+
+      <!-- ===== LEFT: COZY ROOM CARD ===== -->
+      <section class="room-card" aria-label="Cozy room scene">
+
+        <!-- Rain window -->
+        <div class="window-scene" aria-label="Rainy night window">
+          <div class="window-glow"></div>
+          <div class="moon" aria-hidden="true"></div>
+          <div class="trees" aria-hidden="true"></div>
+          <div class="rain-container" id="rain-container" aria-hidden="true"></div>
+        </div>
+
+        <!-- Tea table -->
+        <div class="table-scene" aria-label="Cozy tea mug on a table">
+          <div style="flex:1"></div>
+          <div class="mug-wrap">
+            <div class="steam" aria-hidden="true">
+              <div class="steam-line"></div>
+              <div class="steam-line"></div>
+              <div class="steam-line"></div>
+            </div>
+            <div class="mug" role="img" aria-label="Steaming mug of tea">
+              <div class="mug-heart" aria-hidden="true">♡</div>
+            </div>
+          </div>
+          <div class="wooden-table" role="presentation"></div>
+          <div style="flex:2"></div>
+        </div>
+
+        <p class="card-label">A cozy little corner, just for you</p>
+        <p class="card-sublabel">✦ this little corner was made just for you ✦</p>
+      </section>
+
+      <!-- ===== RIGHT: HUG BUTTON + BOUQUET ===== -->
+      <section class="bouquet-hug-card" aria-label="Virtual hug and bouquet">
+
+        <!-- Hug Button -->
+        <div class="hug-section">
+          <button class="hug-button" id="hug-btn" aria-label="Press for a virtual hug from your love">
+            💗 Mayalu, Press for a Virtual Hug
+          </button>
+          <p class="hug-hint">press as many times as you need, babe ✦</p>
+        </div>
+
+        <!-- Bouquet -->
+        <div class="bouquet-section" aria-label="Virtual flower bouquet">
+          <p class="bouquet-label">✦ A little bouquet for you, just because ✦</p>
+
+          <div class="flowers-and-vase">
+            <!-- Flowers Row -->
+            <div class="flowers-row">
+
+              <!-- Rose -->
+              <div class="flower-wrapper" id="flower-rose" role="button" tabindex="0" aria-label="Rose — click to bloom" title="Click to bloom">
+                <div class="flower-tooltip">I love you, Mayalu — more than any words could ever say. 🌹</div>
+                <div class="rose-bud" aria-hidden="true">
+                  <div class="petal p1"></div>
+                  <div class="petal p2"></div>
+                  <div class="petal p3"></div>
+                  <div class="center"></div>
+                </div>
+                <div class="stem"></div>
+              </div>
+
+              <!-- Peony -->
+              <div class="flower-wrapper" id="flower-peony" role="button" tabindex="0" aria-label="Peony — click to bloom" title="Click to bloom">
+                <div class="flower-tooltip">I miss you every single day, babe — you have no idea. 🌸</div>
+                <div class="peony-bud" aria-hidden="true">
+                  <div class="petal p1"></div>
+                  <div class="petal p2"></div>
+                  <div class="petal p3"></div>
+                  <div class="petal p4"></div>
+                  <div class="petal p5"></div>
+                  <div class="c"></div>
+                </div>
+                <div class="stem"></div>
+              </div>
+
+              <!-- Gerbera Daisy -->
+              <div class="flower-wrapper" id="flower-gerbera" role="button" tabindex="0" aria-label="Gerbera Daisy — click to bloom" title="Click to bloom">
+                <div class="flower-tooltip">I want you to be with me for the rest of my life, Mayalu. 🌼</div>
+                <div class="gerbera-bud" aria-hidden="true">
+                  <div class="petal p1"></div>
+                  <div class="petal p2"></div>
+                  <div class="petal p3"></div>
+                  <div class="petal p4"></div>
+                  <div class="petal p5"></div>
+                  <div class="petal p6"></div>
+                  <div class="petal p7"></div>
+                  <div class="petal p8"></div>
+                  <div class="center"></div>
+                </div>
+                <div class="stem"></div>
+              </div>
+
+            </div><!-- /flowers-row -->
+
+            <!-- Vase -->
+            <div class="vase" aria-hidden="true">
+              <div class="vase-shine"></div>
+            </div>
+          </div>
+          <p class="card-sublabel" style="margin-top:10px;">hover or click each flower to bloom it 🌸</p>
+        </div>
+
+      </section><!-- /bouquet-hug-card -->
+
+      <!-- ===== COMFORT KIT (full-width) ===== -->
+      <section class="comfort-section fade-in-section" aria-label="Prajala's comfort kit">
+        <div class="divider" aria-hidden="true"></div>
+        <h2 class="comfort-title">Prajala's Comfort Kit</h2>
+        <p class="comfort-subtitle">~ open when you need it most, my love ~</p>
+
+        <div class="kit-grid">
+
+          <!-- Card 1: Lonely -->
+          <div class="kit-card" role="button" tabindex="0" aria-label="Open when you feel lonely — click to flip" id="kit-1">
+            <div class="kit-inner">
+              <div class="kit-front">
+                <div class="bottle-icon" aria-hidden="true">
+                  <div class="bottle-cork"></div>
+                  <div class="bottle-neck"></div>
+                  <div class="bottle-body"><div class="bottle-shine"></div></div>
+                </div>
+                <p class="kit-front-label">"Open when you feel lonely"</p>
+                <p class="kit-front-hint">tap to open 🔒</p>
+              </div>
+              <div class="kit-back">
+                <div class="kit-back-icon" aria-hidden="true">💌</div>
+                <p class="kit-back-text">Hey Baby, remember that distance is just a number. My heart is right there next to yours, holding you tight. You are never alone because you have all of my love wrapping around you like a warm blanket. I love you so much.</p>
+                <p class="kit-back-close">tap again to close ✦</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Head hurts -->
+          <div class="kit-card" role="button" tabindex="0" aria-label="Open when your head hurts — click to flip" id="kit-2">
+            <div class="kit-inner">
+              <div class="kit-front">
+                <div class="bottle-icon" aria-hidden="true">
+                  <div class="bottle-cork"></div>
+                  <div class="bottle-neck"></div>
+                  <div class="bottle-body"><div class="bottle-shine"></div></div>
+                </div>
+                <p class="kit-front-label">"Open when your head hurts"</p>
+                <p class="kit-front-hint">tap to open 🔒</p>
+              </div>
+              <div class="kit-back">
+                <div class="kit-back-icon" aria-hidden="true">🌙</div>
+                <p class="kit-back-text">Take a deep breath, Mayalu. Dim your phone screen, close your eyes, and imagine me gently stroking your hair until you fall asleep. Please rest well for me, babe.</p>
+                <p class="kit-back-close">tap again to close ✦</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Miss hugs -->
+          <div class="kit-card" role="button" tabindex="0" aria-label="Open when you miss my hugs — click to flip" id="kit-3">
+            <div class="kit-inner">
+              <div class="kit-front">
+                <div class="bottle-icon" aria-hidden="true">
+                  <div class="bottle-cork"></div>
+                  <div class="bottle-neck"></div>
+                  <div class="bottle-body"><div class="bottle-shine"></div></div>
+                </div>
+                <p class="kit-front-label">"Open when you miss my hugs"</p>
+                <p class="kit-front-hint">tap to open 🔒</p>
+              </div>
+              <div class="kit-back">
+                <div class="kit-back-icon" aria-hidden="true">🤗</div>
+                <p class="kit-back-text">Go ahead and press the big button above as many times as you need, babe! I'm sending a million virtual hugs across the miles straight to your heart. I wish I could squeeze you in person right now.</p>
+                <p class="kit-back-close">tap again to close ✦</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Need a laugh -->
+          <div class="kit-card" role="button" tabindex="0" aria-label="Open when you need a laugh — click to flip" id="kit-4">
+            <div class="kit-inner">
+              <div class="kit-front">
+                <div class="bottle-icon" aria-hidden="true">
+                  <div class="bottle-cork"></div>
+                  <div class="bottle-neck"></div>
+                  <div class="bottle-body"><div class="bottle-shine"></div></div>
+                </div>
+                <p class="kit-front-label">"Open when you need a laugh"</p>
+                <p class="kit-front-hint">tap to open 🔒</p>
+              </div>
+              <div class="kit-back">
+                <div class="kit-back-icon" aria-hidden="true">😄</div>
+                <p class="kit-back-text">Did you know that you are unofficially the cutest sick person in the whole universe? You absolutely rule my world. Get well soon, so that we can fight again, and make some memories together 😂💕</p>
+                <p class="kit-back-close">tap again to close ✦</p>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /kit-grid -->
+      </section><!-- /comfort-section -->
+
+    </div><!-- /main-grid -->
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer-note fade-in-section" aria-label="Closing message">
+      <div class="divider" aria-hidden="true"></div>
+      <p>I wish I could be right there next to you, taking care of you the way you deserve.</p>
+      <p style="margin-top:8px;">I always want to be with you, and I promise I will always treat you right.</p>
+      <p style="margin-top:8px;">I will love you forever, my baby — please get well soon. 🌸</p>
+      <p style="margin-top:8px;">I love you sooooo much, Prajala. More than you know. 💕</p>
+      <p class="signature">— Yours, always and completely 💕</p>
+    </footer>
+
+  </main><!-- /page-wrapper -->
+
+
+  <script>
+    /* ================================================
+       FAIRY LIGHTS GENERATOR
+    ================================================ */
+    (function buildFairyLights() {
+      const strip = document.getElementById('fairy-lights');
+      const count = Math.floor(window.innerWidth / 36);
+      for (let i = 0; i < count; i++) {
+        const b = document.createElement('div');
+        b.className = 'fairy-bulb';
+        strip.appendChild(b);
+      }
+    })();
+
+    /* ================================================
+       RAIN GENERATOR
+    ================================================ */
+    (function buildRain() {
+      const container = document.getElementById('rain-container');
+      const dropCount = 55;
+      for (let i = 0; i < dropCount; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'raindrop';
+        const left   = Math.random() * 100;
+        const height = 8  + Math.random() * 18;
+        const dur    = 0.6 + Math.random() * 0.8;
+        const delay  = Math.random() * 2;
+        const opacity = 0.3 + Math.random() * 0.5;
+        drop.style.cssText =
+          `left:${left}%;` +
+          `height:${height}px;` +
+          `animation-duration:${dur}s;` +
+          `animation-delay:-${delay}s;` +
+          `opacity:${opacity};`;
+        container.appendChild(drop);
+      }
+    })();
+
+    /* ================================================
+       HUG BUTTON PARTICLES
+    ================================================ */
+    const hugBtn = document.getElementById('hug-btn');
+
+    const PARTICLE_POOL = [
+      '💗','💖','💝','💓','✨','🌸','⭐','💫','🌟','🫧','💕','🌺'
+    ];
+
+    hugBtn.addEventListener('click', fireParticles);
+    hugBtn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fireParticles(e); }
+    });
+
+    function fireParticles(e) {
+      const rect = hugBtn.getBoundingClientRect();
+      const cx   = rect.left + rect.width  / 2;
+      const cy   = rect.top  + rect.height / 2;
+      const count = 18 + Math.floor(Math.random() * 10);
+
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => spawnParticle(cx, cy), i * 30);
+      }
+    }
+
+    function spawnParticle(cx, cy) {
+      const el   = document.createElement('div');
+      el.className  = 'particle';
+      el.textContent = PARTICLE_POOL[Math.floor(Math.random() * PARTICLE_POOL.length)];
+
+      const angle  = Math.random() * Math.PI * 2;
+      const spread = 60 + Math.random() * 100;
+      const tx     = Math.cos(angle) * spread;
+      const ty     = -(40 + Math.random() * 160);
+      const size   = 14 + Math.random() * 18;
+      const dur    = 1.2 + Math.random() * 1.0;
+      const rot    = -60 + Math.random() * 120;
+
+      el.style.cssText =
+        `left:${cx}px;` +
+        `top:${cy}px;` +
+        `--tx:${tx}px;` +
+        `--ty:${ty}px;` +
+        `--dur:${dur}s;` +
+        `--size:${size}px;` +
+        `--rot:${rot}deg;` +
+        `font-size:${size}px;`;
+
+      document.body.appendChild(el);
+      el.addEventListener('animationend', () => el.remove());
+    }
+
+    /* ================================================
+       FLOWER BLOOM TOGGLE
+    ================================================ */
+    ['flower-rose', 'flower-peony', 'flower-gerbera'].forEach(id => {
+      const el = document.getElementById(id);
+      el.addEventListener('click', () => el.classList.toggle('bloomed'));
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          el.classList.toggle('bloomed');
+        }
+      });
+    });
+
+    /* ================================================
+       KIT CARDS FLIP
+    ================================================ */
+    ['kit-1','kit-2','kit-3','kit-4'].forEach(id => {
+      const card = document.getElementById(id);
+      card.addEventListener('click', () => card.classList.toggle('flipped'));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.classList.toggle('flipped');
+        }
+      });
+    });
+
+    /* ================================================
+       SCROLL FADE-IN
+    ================================================ */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
