@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Prajala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --dusty-rose: #d8b4b8;
+    --dusty-rose-deep: #c99aa0;
+    --warm-cream: #faf3ec;
+    --soft-lavender: #e6dff0;
+    --slate: #565a68;
+    --slate-soft: #7a7e8c;
+    --paper: #fffdfa;
+    --hairline: rgba(86, 90, 104, 0.14);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--warm-cream) 0%, var(--soft-lavender) 45%, var(--dusty-rose) 100%);
+    background-attachment: fixed;
+    font-family: 'Lora', serif;
+    color: var(--slate);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 6vh 5vw 10vh;
+    line-height: 1.9;
+  }
+
+  .letter-card {
+    background: var(--paper);
+    max-width: 700px;
+    width: 100%;
+    border-radius: 28px;
+    box-shadow:
+      0 30px 60px -20px rgba(90, 70, 80, 0.25),
+      0 10px 25px -10px rgba(90, 70, 80, 0.15);
+    padding: 4.5rem 3.5rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .letter-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--soft-lavender), var(--dusty-rose), var(--soft-lavender));
+  }
+
+  .salutation {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 2.4rem;
+    color: var(--dusty-rose-deep);
+    text-align: center;
+    margin: 0 0 2.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .body-text p {
+    margin: 0 0 1.4rem;
+    font-size: 1.08rem;
+    color: var(--slate);
+    text-align: left;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2.8rem 0;
+    gap: 1rem;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--hairline), transparent);
+  }
+
+  .divider-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--dusty-rose-deep);
+    letter-spacing: 0.15em;
+    white-space: nowrap;
+  }
+
+  .anyway {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 0.35em;
+    font-size: 0.95rem;
+    color: var(--slate-soft);
+    margin: 3rem 0 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .name-line {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.7rem;
+    color: var(--dusty-rose-deep);
+    margin: 0 0 1.8rem;
+  }
+
+  .declaration-box {
+    background: linear-gradient(155deg, var(--soft-lavender) 0%, #f3e7ea 100%);
+    border: 1px solid rgba(201, 154, 160, 0.35);
+    border-radius: 20px;
+    padding: 2.2rem 2rem;
+    margin: 0 0 3rem;
+    box-shadow: 0 15px 35px -15px rgba(184, 150, 160, 0.4);
+    position: relative;
+  }
+
+  .declaration-box::before {
+    content: "❦";
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--paper);
+    color: var(--dusty-rose-deep);
+    font-size: 1.3rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(184, 150, 160, 0.35);
+  }
+
+  .declaration-box p {
+    margin: 0;
+    text-align: center;
+    font-size: 1.12rem;
+    font-weight: 500;
+    color: #6b4a52;
+    letter-spacing: 0.01em;
+    line-height: 1.85;
+  }
+
+  .declaration-box p:first-child {
+    margin-bottom: 0.9rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--slate);
+    font-size: 1rem;
+  }
+
+  footer.final-line {
+    margin-top: 1rem;
+    padding-top: 2.2rem;
+    border-top: 1px solid var(--hairline);
+    text-align: center;
+  }
+
+  footer.final-line p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--slate-soft);
+    line-height: 1.9;
+    margin: 0 auto;
+    max-width: 480px;
+  }
+
+  footer.final-line .sign-off {
+    margin-top: 1.4rem;
+    font-size: 1.3rem;
+    color: var(--dusty-rose-deep);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 600px) {
+    body {
+      padding: 8vw 4vw 14vw;
+    }
+    .letter-card {
+      padding: 3rem 1.6rem 2.2rem;
+      border-radius: 20px;
+    }
+    .salutation {
+      font-size: 1.9rem;
+    }
+    .body-text p,
+    .declaration-box p {
+      font-size: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="letter-card">
+
+  <p class="salutation">Prajala.</p>
+
+  <div class="body-text">
+    <p>I know you dont like to hear sorry from me. Bt still. Sorry.</p>
+    <p>I know I made a lot of mistakes.</p>
+    <p>I told you a lot of bad things.&nbsp; And hurt you.</p>
+    <p>Which I never wanted to.</p>
+    <p>But you provoke me every time.</p>
+    <p>You know which things will hurt me the most and you do exactly those things.</p>
+    <p>That makes everything clear that how much valuesess you consider me in your life just because I begged you to stay w me and not to leave me.</p>
+
+    <p>I am not blaming only you that for your behaviour I am being hard on you. It is also me who can not control himself when I get hurt . Out of anger I say lot of things. I try to hard you because you hurt me already. I forget that how much I love you. I try to take revenge saying things back to you jst bcz you hurt me. And even when I am angry you provke me more and more.</p>
+    <p>Idk if it is intentionally.&nbsp; Or that is how you are.</p>
+    <p>But it doesnt matter anymore.</p>
+    <p>As I should need to fix myself first before blaming you.</p>
+    <p>But what should I even do. I try every time to keep you happy. To not fight with you. And you come up with something soo silly and stop talking to me or start behaving like I dont mean anything in your life.</p>
+
+    <p>But truly I feel now I never meant anything in your life. You only liked that I was putting efforts for you. And choose to stay with me. But I dont think you ever loved me. And I am being frank. Cz if you ever loved you would have cared about my heart in the first place.&nbsp; Not about other things. But you never cared what hurts my heart. Even after telling you again and again you do not stop hurting me. Instead you get to know my weakness and hurt me harder on my weakness next time. I hurt me those ways that you know that I will get hurt the most.</p>
+    <p>I still dont know what was my mistake that night. Why you stopped responding me. Why you didnt want to talk to me. Is it bcz of that dog or smth else. I really dont know.</p>
+    <p>And now I dont even want to know.</p>
+    <p>And I know that I might think I am putting efforts for you. Or ever put efforts for you but you will not value it. Maybe because I still dont know how to love you. How you would loved to be loved. I just did it the way I could which was clearly not enough and because of soem limitations I couldn't do a lot of things even if I tried. I just failed to love you.</p>
+    <p>No matter how much I feel for you I coudnt put it on word and also coudnt express it w my actions.</p>
+    <p>Sorry I told you that I will keep you happy but I never could.</p>
+
+    <p>Lemme get this straight, as you are never happy with me also you said you can never be happy with me it will not work.</p>
+    <p>I really wish you find someone or if you already have someone he will make you the happiest person in this world. He can understand you without you sayung a word. He can sacrifices everything because of you and can be the way you alws want your partner to be. But clearly I am not that person. That is why I am getting hurt again and again.</p>
+
+    <p>And I wish I will also be with someone who can Understand my part, and who knows or learn when to stop when I am not in my bad mood and stop provoking me and making me regret afterwards.</p>
+    <p>And it is also good for you that you choose to leave me forever before you see my extreme anger. Which you will not like.</p>
+    <p>I thought I forgot to get angry but you made me realise that It's still in there w me. Which I dont want to show . And yh I am very nasty person the way you said. And I have to work on myself so that I do not hurt anybody again.</p>
+
+    <p>I will pray for you and you also pray for me.</p>
+    <p>I hate myself that I am getting out of your life in this situation of yours but I know you will be better if I am not in your life this time. You can only be with the person's you love and like.</p>
+    <p>Best of luck for your future. Best of luck for the marriage you were saying abt. Best of luck w the visa. I hope we never have to see each others face again. And what an irony of me that the movie I wanted to watch w you for sooo long we broke up just 1 day before going there.</p>
+    <p>It's funny isnt it.</p>
+  </div>
+
+  <div class="divider"><span class="divider-mark">⁂</span></div>
+
+  <p class="anyway">Anyway,</p>
+  <p class="name-line">Prajala.</p>
+
+  <div class="declaration-box">
+    <p>for the last time.</p>
+    <p>I LOVE YOU SOOO MUCH, AND I AM SAYING THE TRUST THAT I NEVER LOVED ANYBODY LIKE I LOVED YOU. WITHOUTANY PROPER REASON<br>
+    . AND I AM SORRY FOR EVERYTHING AGAIN.</p>
+  </div>
+
+  <footer class="final-line">
+    <p>And at last. Dont pick anything out of my words and start pointing me again. As you know I am not good w words. And also I do not want any arguments again and dont want to make things nasty again.</p>
+    <p class="sign-off">So b-bye</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
