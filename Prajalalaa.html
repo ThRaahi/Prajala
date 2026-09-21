@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For You, Baba ♡</title>
+<style>
+:root{
+  --ivory:#f8f0e3;
+  --parchment:#f4e8d8;
+  --blush:#f6dee2;
+  --blush2:#f1d3d9;
+  --peach:#f3d8c2;
+  --lavender:#e6dcee;
+  --mauve:#d8b7c3;
+  --mauve-deep:#c299ab;
+  --sage:#cdd6bd;
+  --sage-deep:#a9b894;
+  --powder:#cfe0e6;
+  --gold:#b8935a;
+  --gold-light:#d9b783;
+  --rose-mid:#cf98a3;
+  --rose-deep:#b06e7c;
+  --rose-pale:#eec7cd;
+  --ink:#4a2e2a;
+  --ink-soft:#5c3a45;
+  --plum:#5a3348;
+  --shadow-warm: 30, 18, 16;
+  --serif:'Iowan Old Style','Palatino Linotype','Book Antiqua',Georgia,'Times New Roman',serif;
+  --script:'Segoe Script','Brush Script MT','Lucida Handwriting',cursive;
+}
+*{box-sizing:border-box;}
+html,body{
+  height:100%;
+  margin:0;
+  padding:0;
+  background:#2c211d;
+  background:radial-gradient(ellipse at 50% 20%, #3a2b26 0%, #241a17 70%, #1b1310 100%);
+  font-family:var(--serif);
+  color:var(--ink);
+  overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+body{
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+::selection{background:var(--mauve);color:var(--ink);}
+
+/* ---------- ambient background petals ---------- */
+#ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+#ambient span{
+  position:absolute; top:-5%;
+  font-size:14px;
+  opacity:.35;
+  color:var(--rose-pale);
+  animation:driftDown linear infinite;
+  filter:blur(.2px);
+}
+@keyframes driftDown{
+  0%{transform:translateY(-10vh) translateX(0) rotate(0deg); opacity:0;}
+  10%{opacity:.35;}
+  90%{opacity:.28;}
+  100%{transform:translateY(110vh) translateX(30px) rotate(180deg); opacity:0;}
+}
+
+/* ---------- stage ---------- */
+#stage{
+  position:fixed; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  perspective:3200px;
+  z-index:1;
+  padding:14px;
+}
+#bookWrap{
+  position:relative;
+  width:min(62vw, 620px);
+  height:min(92vh, 880px);
+  transform-style:preserve-3d;
+}
+
+/* ================= BOOK ================= */
+#book{
+  position:absolute; inset:0;
+  transform-style:preserve-3d;
+}
+
+/* under-stack: gives page-block thickness illusion */
+.pageblock{
+  position:absolute;
+  top:2%; bottom:2%;
+  width:48%;
+  background:
+    repeating-linear-gradient(to bottom,
+      #ece0cd 0px, #ece0cd 1px, #e2d3bc 2px, #e2d3bc 3px);
+  border-radius:3px;
+  box-shadow: inset 0 0 6px rgba(80,50,30,.25);
+}
+.pageblock.left{ left:0; border-radius:6px 2px 2px 6px; transform:translateZ(-6px);}
+.pageblock.right{ right:0; border-radius:2px 6px 6px 2px; transform:translateZ(-6px);}
+
+/* the visible open pages */
+.page-static{
+  position:absolute; top:2%; bottom:2%;
+  width:48%;
+  overflow:hidden;
+  border-radius:4px;
+  box-shadow:0 10px 30px rgba(20,10,8,.35);
+}
+#leftPage{ left:0; border-radius:8px 3px 3px 8px; }
+#rightPage{ right:0; border-radius:3px 8px 8px 3px; }
+
+/* spine */
+.spine{
+  position:absolute; left:50%; top:0; bottom:0;
+  width:34px; margin-left:-17px;
+  background:linear-gradient(to right,
+     rgba(0,0,0,.28), rgba(0,0,0,.05) 20%, rgba(0,0,0,.05) 80%, rgba(0,0,0,.28));
+  z-index:40; pointer-events:none;
+  filter:blur(1px);
+}
+
+/* ---------- PAPER base ---------- */
+.paper{
+  position:absolute; inset:0;
+  background-color:var(--ivory);
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(255,255,255,.35), transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(255,255,255,.25), transparent 45%),
+    repeating-linear-gradient(120deg, rgba(120,90,60,.025) 0px, rgba(120,90,60,.025) 1px, transparent 2px, transparent 4px),
+    repeating-linear-gradient(35deg, rgba(120,90,60,.02) 0px, rgba(120,90,60,.02) 1px, transparent 2px, transparent 5px);
+  box-shadow:
+    inset 0 0 40px rgba(120,80,50,.08),
+    inset 0 0 3px rgba(90,60,40,.15);
+}
+.paper::after{ /* soft curled corner hint */
+  content:"";
+  position:absolute; right:0; bottom:0;
+  width:46px; height:46px;
+  background:linear-gradient(135deg, transparent 50%, rgba(150,110,70,.14) 52%, rgba(255,255,255,.5) 60%, transparent 62%);
+  pointer-events:none;
+}
+.p-v1 .paper{background-color:var(--ivory);}
+.p-v2 .paper{background-color:var(--blush);}
+.p-v3 .paper{background-color:var(--parchment); background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(230,220,238,.55), transparent 55%),
+    repeating-linear-gradient(120deg, rgba(120,90,60,.025) 0px, rgba(120,90,60,.025) 1px, transparent 2px, transparent 4px);}
+.p-v4 .paper{background-color:var(--ivory); background-image:
+    radial-gradient(ellipse at 85% 12%, rgba(205,214,189,.5), transparent 50%),
+    repeating-linear-gradient(120deg, rgba(120,90,60,.025) 0px, rgba(120,90,60,.025) 1px, transparent 2px, transparent 4px);}
+.p-v5 .paper{background-color:var(--peach);}
+.p-v6 .paper{background-color:var(--parchment);}
+.p-v7 .paper{background-color:var(--blush2);}
+.p-v8 .paper{background-color:var(--ivory); background-image:
+    radial-gradient(ellipse at 12% 88%, rgba(217,183,195,.4), transparent 50%),
+    repeating-linear-gradient(120deg, rgba(120,90,60,.025) 0px, rgba(120,90,60,.025) 1px, transparent 2px, transparent 4px);}
+
+/* gold frame variant */
+.gold-frame .paper{
+  outline:1px solid rgba(184,147,90,.55);
+  outline-offset:-14px;
+}
+.gold-frame .paper::before{
+  content:"";
+  position:absolute; inset:20px;
+  border:1px solid rgba(184,147,90,.35);
+  pointer-events:none;
+}
+
+/* ---------- page content layout ---------- */
+.leaf-inner{
+  position:relative; z-index:2;
+  height:100%;
+  padding:9% 9% 8% 9%;
+  display:flex; flex-direction:column;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:var(--mauve) transparent;
+}
+.leaf-inner::-webkit-scrollbar{width:5px;}
+.leaf-inner::-webkit-scrollbar-thumb{background:var(--mauve);border-radius:4px;}
+
+.page-eyebrow{
+  font-family:var(--script);
+  font-size:15px;
+  color:var(--rose-deep);
+  opacity:.85;
+  margin:0 0 6px 0;
+  letter-spacing:.4px;
+}
+.page-title{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:600;
+  font-size:clamp(20px,3vw,28px);
+  color:var(--plum);
+  margin:0 0 14px 0;
+  line-height:1.25;
+}
+.page-text{
+  flex:1;
+  font-size:clamp(15.5px,1.9vw,18px);
+  line-height:1.78;
+  color:var(--ink);
+}
+.page-text p{margin:0 0 1.05em 0;}
+.page-text p.emph{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.12em;
+  color:var(--plum);
+  text-align:center;
+  margin:1.3em 0;
+}
+.page-num{
+  align-self:center;
+  font-family:var(--script);
+  font-size:14px;
+  color:var(--gold);
+  opacity:.85;
+  margin-top:8px;
+}
+
+/* ---------- decoration layer ---------- */
+.deco{position:absolute; pointer-events:none; z-index:1;}
+.deco svg{display:block; width:100%; height:100%;}
+
+/* ================= COVER ================= */
+.cover{
+  position:absolute; inset:0;
+  transform-style:preserve-3d;
+  transform-origin:left center;
+  z-index:100;
+  border-radius:6px 10px 10px 6px;
+  box-shadow:0 18px 55px rgba(10,5,5,.55), 0 2px 0 rgba(255,255,255,.06) inset;
+  transition:transform 1.5s cubic-bezier(.6,.05,.25,1);
+  will-change:transform;
+}
+.cover-face{
+  position:absolute; inset:0;
+  backface-visibility:hidden;
+  border-radius:inherit;
+  overflow:hidden;
+}
+.cover-front{
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255,255,255,.10), transparent 55%),
+    radial-gradient(ellipse at 75% 85%, rgba(0,0,0,.14), transparent 55%),
+    linear-gradient(155deg, #cf9fae 0%, #c191a1 35%, #b7859a 65%, #a8768d 100%);
+  box-shadow: inset 0 0 0 10px rgba(255,255,255,.06), inset 0 0 60px rgba(70,20,35,.25);
+}
+.cover-front::before{ /* fabric grain */
+  content:""; position:absolute; inset:0;
+  background-image:
+    repeating-linear-gradient(115deg, rgba(255,255,255,.05) 0px, rgba(255,255,255,.05) 1px, transparent 2px, transparent 4px),
+    repeating-linear-gradient(25deg, rgba(0,0,0,.04) 0px, rgba(0,0,0,.04) 1px, transparent 2px, transparent 5px);
+  mix-blend-mode:overlay;
+}
+.cover-inner-border{
+  position:absolute; inset:18px;
+  border:2px solid rgba(201,161,90,.75);
+  border-radius:4px;
+}
+.cover-inner-border::before{
+  content:"";
+  position:absolute; inset:6px;
+  border:1px solid rgba(201,161,90,.45);
+}
+.cover-content{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  padding:10%;
+  color:#4a2530;
+}
+.cover-eyebrow{
+  font-family:var(--serif); font-style:italic; font-weight:600;
+  font-size:clamp(13px,1.6vw,16px);
+  letter-spacing:1.5px;
+  color:#6b3a49;
+  opacity:.9;
+  margin-bottom:6px;
+}
+.cover-title{
+  font-family:var(--script);
+  font-size:clamp(30px,5vw,52px);
+  color:#4a2432;
+  text-shadow:0 1px 0 rgba(255,255,255,.25);
+  margin:6px 0 10px 0;
+  line-height:1.15;
+}
+.cover-rose-orn{
+  width:clamp(90px,14vw,150px);
+  height:clamp(90px,14vw,150px);
+  margin:14px 0;
+}
+.cover-sub{
+  font-family:var(--serif); font-style:italic;
+  font-size:clamp(14px,1.8vw,18px);
+  color:#5c3040;
+  margin-top:6px;
+}
+.cover-open-btn{
+  margin-top:clamp(20px,4vh,42px);
+  font-family:var(--serif); font-style:italic; letter-spacing:2px;
+  font-size:clamp(12px,1.5vw,14px);
+  color:#4a2432;
+  background:transparent;
+  border:1px solid rgba(74,36,50,.55);
+  padding:10px 26px;
+  border-radius:2px;
+  cursor:pointer;
+  position:relative;
+}
+.cover-open-btn::before,.cover-open-btn::after{
+  content:"✦"; color:var(--gold); font-size:10px; margin:0 8px; opacity:.8;
+}
+.cover-open-btn:hover{background:rgba(255,255,255,.12);}
+.cover-open-btn:focus-visible{outline:2px solid #4a2432; outline-offset:3px;}
+
+.cover-corner{position:absolute; width:15%; height:15%; opacity:.85;}
+.cc-tl{top:14px; left:14px;}
+.cc-tr{top:14px; right:14px; transform:scaleX(-1);}
+.cc-bl{bottom:14px; left:14px; transform:scaleY(-1);}
+.cc-br{bottom:14px; right:14px; transform:scale(-1,-1);}
+
+/* inside of front cover (visible once opened) */
+.cover-inside{
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(255,255,255,.4), transparent 60%),
+    var(--blush);
+  transform:rotateY(180deg);
+}
+.cover-inside-content{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  padding:12%;
+  text-align:center;
+}
+.cover-inside-content p{
+  font-family:var(--script);
+  font-size:clamp(16px,2.4vw,22px);
+  color:var(--plum);
+  line-height:1.6;
+}
+
+/* spine edge on cover for thickness */
+.cover-edge{
+  position:absolute; left:0; top:2%; bottom:2%; width:14px;
+  background:linear-gradient(to right, #8a5a68, #b7859a);
+  transform:rotateY(90deg) translateZ(7px);
+  transform-origin:left;
+  border-radius:4px 0 0 4px;
+}
+
+/* ================= FLIP LEAF ================= */
+.flip-leaf{
+  position:absolute; top:2%; bottom:2%;
+  width:48%;
+  z-index:60;
+  perspective:2600px;
+  pointer-events:none;
+  display:none;
+}
+.flip-leaf.active{display:block;}
+.flip-leaf.mode-right{right:0;}
+.flip-leaf.mode-left{left:0;}
+.band{
+  position:absolute; inset:0;
+  transform-style:preserve-3d;
+  transform-origin:left center;
+  transition:transform 1.05s cubic-bezier(.5,.02,.28,1);
+}
+.mode-left .band{transform-origin:right center;}
+.band .face{
+  position:absolute; inset:0;
+  backface-visibility:hidden;
+  overflow:hidden;
+  border-radius:3px 8px 8px 3px;
+  box-shadow:0 0 18px rgba(20,10,8,.28);
+}
+.band .face.back{transform:rotateY(180deg);}
+.mode-left .band .face{border-radius:8px 3px 3px 8px;}
+.band.b1{clip-path:inset(0% 0 75% 0);}
+.band.b2{clip-path:inset(25% 0 50% 0);}
+.band.b3{clip-path:inset(50% 0 25% 0);}
+.band.b4{clip-path:inset(75% 0 0% 0);}
+.band .shade{
+  position:absolute; inset:0;
+  background:linear-gradient(to right, rgba(35,18,15,.42), rgba(35,18,15,0) 55%);
+  opacity:0;
+  pointer-events:none;
+}
+.mode-left .band .shade{background:linear-gradient(to left, rgba(35,18,15,.42), rgba(35,18,15,0) 55%);}
+.band.shading .shade{animation:shadeWave 1.05s ease-in-out;}
+.band.b1.shading .shade{animation-delay:0ms;}
+.band.b2.shading .shade{animation-delay:70ms;}
+.band.b3.shading .shade{animation-delay:140ms;}
+.band.b4.shading .shade{animation-delay:210ms;}
+@keyframes shadeWave{0%{opacity:0;}45%{opacity:.4;}100%{opacity:0;}}
+
+.flip-leaf.next-active .band{transform:rotateY(-178deg);}
+.flip-leaf.next-active .band.b1{transition-delay:0ms;}
+.flip-leaf.next-active .band.b2{transition-delay:70ms;}
+.flip-leaf.next-active .band.b3{transition-delay:140ms;}
+.flip-leaf.next-active .band.b4{transition-delay:210ms;}
+
+.flip-leaf.prev-active .band{transform:rotateY(0deg);}
+.flip-leaf.prev-active .band.b1{transition-delay:0ms;}
+.flip-leaf.prev-active .band.b2{transition-delay:70ms;}
+.flip-leaf.prev-active .band.b3{transition-delay:140ms;}
+.flip-leaf.prev-active .band.b4{transition-delay:210ms;}
+
+/* ================= NAV ================= */
+.tap-zone{position:absolute; top:0; bottom:0; width:14%; z-index:70; cursor:pointer; background:transparent;}
+.tap-zone.left{left:0;}
+.tap-zone.right{right:0;}
+
+#controls{
+  position:absolute; left:50%; bottom:-52px; transform:translateX(-50%);
+  display:flex; align-items:center; gap:18px;
+  z-index:90;
+  font-family:var(--serif); font-style:italic;
+}
+.ctrl-btn{
+  background:rgba(248,240,227,.92);
+  border:1px solid var(--gold);
+  color:var(--plum);
+  width:38px;height:38px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px; cursor:pointer;
+  box-shadow:0 4px 10px rgba(30,15,10,.3);
+  transition:transform .2s ease, background .2s ease;
+}
+.ctrl-btn:hover{transform:translateY(-2px); background:#fff;}
+.ctrl-btn:focus-visible{outline:2px solid var(--plum); outline-offset:2px;}
+.ctrl-btn[disabled]{opacity:.35; cursor:default; pointer-events:none;}
+#pageIndicator{
+  color:#f2e2cf; font-size:13px; letter-spacing:1px; min-width:70px; text-align:center;
+}
+#closeBtn{
+  position:absolute; top:-46px; right:6px; z-index:90;
+  font-family:var(--serif); font-style:italic; font-size:13px;
+  color:#f2e2cf; background:transparent; border:1px solid rgba(242,226,207,.5);
+  padding:6px 14px; border-radius:2px; cursor:pointer; letter-spacing:1px;
+  opacity:0; pointer-events:none; transition:opacity .4s ease;
+}
+#closeBtn.show{opacity:1; pointer-events:auto;}
+#closeBtn:hover{background:rgba(255,255,255,.08);}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 880px){
+  #bookWrap{width:96vw; height:82vh;}
+  .pageblock.left,#leftPage{display:none;}
+  .pageblock.right{width:96%; left:2%; right:auto;}
+  #rightPage{width:96%; left:2%; right:auto; border-radius:6px;}
+  .spine{display:none;}
+  .flip-leaf.mode-right{width:96%; left:2%; right:auto;}
+  .leaf-inner{padding:11% 8% 9% 8%;}
+  .page-title{font-size:clamp(19px,4.6vw,24px);}
+  .page-text{font-size:clamp(15px,3.6vw,16.5px); line-height:1.72;}
+  #controls{bottom:-46px; gap:14px;}
+  .cover-content{padding:9% 8%;}
+}
+@media (max-width: 420px){
+  #bookWrap{height:80vh;}
+  .leaf-inner{padding:12% 7% 10% 7%;}
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .cover{transition:transform .35s linear;}
+  .band{transition:transform .35s linear !important;}
+  .band.shading .shade{animation:none;}
+  #ambient span{animation:none; display:none;}
+  .petal-fall{animation:none !important;}
+}
+
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+</style>
+</head>
+<body>
+
+<div id="ambient" aria-hidden="true"></div>
+
+<!-- ============ SVG SYMBOL LIBRARY ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+
+<symbol id="rose" viewBox="0 0 120 120">
+  <g>
+    <path d="M60 100 C40 95 30 78 34 62 C22 60 14 48 18 34 C10 30 8 18 16 8 C26 14 30 24 28 34 C40 26 56 28 62 40 C74 34 88 40 92 52 C100 56 104 68 98 80 C104 88 100 100 88 102 C86 110 76 116 66 110 C60 116 50 112 48 104" fill="none"/>
+    <path d="M60 30c14-6 28 2 30 16 2 12-6 22-18 24-4-10 0-20 8-24-8-2-16 2-20 10-4-10 0-20 0-26z" fill="var(--rp-l,#e9bfc7)"/>
+    <path d="M60 30c-16-4-28 6-28 20 0 12 10 20 22 20 2-10-4-18-14-22 10-4 18 0 22 8 2-10-2-20-2-26z" fill="var(--rp-d,#c98c9a)"/>
+    <path d="M60 34c9 3 15 12 13 21-2 8-10 13-18 12 0-8 5-15 12-17-6-3-12 0-15 6-1-8 2-16 8-22z" fill="var(--rp-l,#e9bfc7)"/>
+    <path d="M60 34c-10 2-17 10-16 19 1 8 9 14 17 13 1-8-4-15-11-18 6-2 12 1 15 7 2-8-1-16-5-21z" fill="var(--rp-d,#c98c9a)"/>
+    <circle cx="60" cy="46" r="11" fill="var(--rp-c,#b06e7c)"/>
+    <path d="M60 40c4 0 7 3 7 6 0 3-3 6-7 6-4 0-7-3-7-6 0-3 3-6 7-6z" fill="var(--rp-cc,#973f52)"/>
+  </g>
+</symbol>
+
+<symbol id="rosebud" viewBox="0 0 60 90">
+  <path d="M30 70 C22 55 22 40 30 30 C38 40 38 55 30 70Z" fill="var(--rp-d,#c98c9a)"/>
+  <path d="M30 32 C24 40 24 52 30 62 C36 52 36 40 30 32Z" fill="var(--rp-l,#e9bfc7)"/>
+  <path d="M30 30 C18 34 16 46 24 52" fill="none" stroke="var(--sage-deep,#8fa377)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M30 84 C30 60 30 50 30 30" fill="none" stroke="var(--sage-deep,#8fa377)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M30 60 C22 62 16 68 15 76" fill="none" stroke="var(--sage-deep,#8fa377)" stroke-width="2.5" stroke-linecap="round"/>
+  <ellipse cx="14" cy="78" rx="9" ry="4.5" fill="var(--sage,#cdd6bd)" transform="rotate(-30 14 78)"/>
+  <path d="M30 68 C38 70 44 76 46 82" fill="none" stroke="var(--sage-deep,#8fa377)" stroke-width="2.5" stroke-linecap="round"/>
+  <ellipse cx="47" cy="84" rx="9" ry="4.5" fill="var(--sage,#cdd6bd)" transform="rotate(25 47 84)"/>
+</symbol>
+
+<symbol id="leaf" viewBox="0 0 40 70">
+  <path d="M20 2 C34 18 34 52 20 68 C6 52 6 18 20 2Z" fill="var(--sage,#cdd6bd)"/>
+  <path d="M20 6 L20 64" stroke="var(--sage-deep,#8fa377)" stroke-width="1.4" fill="none"/>
+</symbol>
+
+<symbol id="sprig" viewBox="0 0 100 60">
+  <path d="M4 50 C30 40 60 30 96 10" fill="none" stroke="var(--sage-deep,#8fa377)" stroke-width="2" stroke-linecap="round"/>
+  <use href="#leaf" x="6" y="30" width="18" height="30" transform="rotate(-30 15 45)"/>
+  <use href="#leaf" x="30" y="14" width="18" height="30" transform="rotate(-15 39 29)"/>
+  <use href="#leaf" x="58" y="0" width="18" height="30" transform="rotate(10 67 15)"/>
+</symbol>
+
+<symbol id="wildflower" viewBox="0 0 40 40">
+  <g fill="var(--wf,#f4e8f0)">
+    <ellipse cx="20" cy="9" rx="6" ry="9"/>
+    <ellipse cx="20" cy="31" rx="6" ry="9"/>
+    <ellipse cx="9" cy="20" rx="9" ry="6"/>
+    <ellipse cx="31" cy="20" rx="9" ry="6"/>
+  </g>
+  <circle cx="20" cy="20" r="4.5" fill="var(--gold-light,#d9b783)"/>
+</symbol>
+
+<symbol id="petal" viewBox="0 0 30 40">
+  <path d="M15 2 C26 12 26 30 15 38 C4 30 4 12 15 2Z" fill="var(--rp-l,#e9bfc7)"/>
+</symbol>
+
+<symbol id="flourish" viewBox="0 0 160 60">
+  <path d="M2 30 C30 6 40 46 70 20 C90 2 100 40 130 14 C142 4 150 14 158 8" fill="none" stroke="var(--gold,#b8935a)" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="2" cy="30" r="2.4" fill="var(--gold,#b8935a)"/>
+  <circle cx="158" cy="8" r="2.4" fill="var(--gold,#b8935a)"/>
+</symbol>
+
+<symbol id="cornerbranch" viewBox="0 0 140 140">
+  <path d="M6 6 C40 10 70 30 90 60 C104 80 112 104 118 134" fill="none" stroke="var(--sage-deep,#8fa377)" stroke-width="2" stroke-linecap="round"/>
+  <use href="#leaf" x="18" y="8" width="16" height="26" transform="rotate(35 26 21)"/>
+  <use href="#leaf" x="42" y="26" width="16" height="26" transform="rotate(55 50 39)"/>
+  <use href="#rosebud" x="66" y="46" width="26" height="40" transform="rotate(15 79 66)"/>
+  <use href="#leaf" x="92" y="88" width="14" height="24" transform="rotate(70 99 100)"/>
+</symbol>
+
+<symbol id="ornaline" viewBox="0 0 200 20">
+  <line x1="0" y1="10" x2="70" y2="10" stroke="var(--gold,#b8935a)" stroke-width="1"/>
+  <circle cx="100" cy="10" r="3" fill="var(--gold,#b8935a)"/>
+  <path d="M92 10 a8 8 0 0 1 16 0" fill="none" stroke="var(--gold,#b8935a)" stroke-width="1"/>
+  <line x1="130" y1="10" x2="200" y2="10" stroke="var(--gold,#b8935a)" stroke-width="1"/>
+</symbol>
+
+</defs>
+</svg>
+
+<!-- ============ STAGE ============ -->
+<div id="stage">
+  <div id="bookWrap">
+    <div id="book">
+
+      <button id="closeBtn" type="button">Close the book</button>
+
+      <div class="pageblock left"></div>
+      <div class="pageblock right"></div>
+
+      <div id="leftPage" class="page-static"><div class="paper"></div></div>
+      <div id="rightPage" class="page-static"><div class="paper"></div></div>
+
+      <div id="flipLeaf" class="flip-leaf mode-right">
+        <div class="band b1"><div class="face front"></div><div class="face back"></div><div class="shade"></div></div>
+        <div class="band b2"><div class="face front"></div><div class="face back"></div><div class="shade"></div></div>
+        <div class="band b3"><div class="face front"></div><div class="face back"></div><div class="shade"></div></div>
+        <div class="band b4"><div class="face front"></div><div class="face back"></div><div class="shade"></div></div>
+      </div>
+
+      <div class="spine"></div>
+
+      <div class="tap-zone left" id="zoneLeft" aria-hidden="true"></div>
+      <div class="tap-zone right" id="zoneRight" aria-hidden="true"></div>
+
+      <!-- COVER -->
+      <div class="cover" id="cover">
+        <div class="cover-face cover-front">
+          <div class="cover-inner-border"></div>
+          <div class="cover-corner cc-tl deco"><svg viewBox="0 0 140 140"><use href="#cornerbranch"/></svg></div>
+          <div class="cover-corner cc-tr deco"><svg viewBox="0 0 140 140"><use href="#cornerbranch"/></svg></div>
+          <div class="cover-corner cc-bl deco"><svg viewBox="0 0 140 140"><use href="#cornerbranch"/></svg></div>
+          <div class="cover-corner cc-br deco"><svg viewBox="0 0 140 140"><use href="#cornerbranch"/></svg></div>
+          <div class="cover-content">
+            <div class="cover-eyebrow">For The Person I Love The Most</div>
+            <div class="cover-title">A Letter From My Heart</div>
+            <svg class="cover-rose-orn" viewBox="0 0 120 120" style="--rp-l:#f1d0d6;--rp-d:#c98c9a;--rp-c:#b06e7c;--rp-cc:#8a4457;"><use href="#rose"/></svg>
+            <div class="cover-sub">For You, Baba ♡</div>
+            <button class="cover-open-btn" id="openBtn" type="button">Open the Book</button>
+          </div>
+        </div>
+        <div class="cover-face cover-inside">
+          <div class="cover-inside-content">
+            <p>every page that follows<br>was written with a heavy,<br>honest heart.</p>
+          </div>
+        </div>
+        <div class="cover-edge"></div>
+      </div>
+
+    </div>
+
+    <div id="controls">
+      <button class="ctrl-btn" id="prevBtn" type="button" aria-label="Previous page">‹</button>
+      <span id="pageIndicator"></span>
+      <button class="ctrl-btn" id="nextBtn" type="button" aria-label="Next page">›</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------------- ambient background petals ---------------- */
+var ambient = document.getElementById('ambient');
+if(!reduced){
+  var glyphs = ['❀','✿','❁','⚘'];
+  for(var i=0;i<10;i++){
+    var s = document.createElement('span');
+    s.textContent = glyphs[i % glyphs.length];
+    s.style.left = (Math.random()*100)+'vw';
+    s.style.fontSize = (10+Math.random()*10)+'px';
+    s.style.animationDuration = (18+Math.random()*16)+'s';
+    s.style.animationDelay = (Math.random()*-20)+'s';
+    ambient.appendChild(s);
+  }
+}
+
+/* ================= PAGE CONTENT ================= */
+function p(){ return Array.prototype.slice.call(arguments).map(function(t){return '<p>'+t+'</p>';}).join(''); }
+function pe(t){ return '<p class="emph">'+t+'</p>'; }
+
+// decoration templates, keyed, returning HTML for the .deco layer
+var DECOR = {
+  none: '',
+  cornerRoseTL: '<div class="deco" style="top:4%;left:4%;width:20%;max-width:130px;opacity:.92;"><svg viewBox="0 0 120 120" style="--rp-l:#f1d0d6;--rp-d:#d9a5ad;--rp-c:#c98c9a;--rp-cc:#a15a6a;"><use href="#rose"/></svg></div>',
+  cornerRoseBR: '<div class="deco" style="bottom:5%;right:4%;width:18%;max-width:120px;opacity:.85;transform:rotate(8deg);"><svg viewBox="0 0 120 120" style="--rp-l:#f3d8c2;--rp-d:#dba98a;--rp-c:#c98c6c;--rp-cc:#a15a3a;"><use href="#rose"/></svg></div>',
+  sprigTop: '<div class="deco" style="top:3%;left:8%;width:44%;max-width:220px;opacity:.8;"><svg viewBox="0 0 100 60"><use href="#sprig"/></svg></div>',
+  sprigCornerTR: '<div class="deco" style="top:4%;right:4%;width:24%;max-width:140px;opacity:.85;transform:scaleX(-1) rotate(10deg);"><svg viewBox="0 0 100 60"><use href="#sprig"/></svg></div>',
+  budBL: '<div class="deco" style="bottom:5%;left:6%;width:13%;max-width:70px;opacity:.9;"><svg viewBox="0 0 60 90"><use href="#rosebud"/></svg></div>',
+  budBR: '<div class="deco" style="bottom:5%;right:6%;width:13%;max-width:70px;opacity:.9;transform:scaleX(-1);"><svg viewBox="0 0 60 90"><use href="#rosebud"/></svg></div>',
+  quietDivider: '<div class="deco" style="top:14%;left:50%;width:38%;max-width:200px;transform:translateX(-50%);opacity:.55;"><svg viewBox="0 0 200 20"><use href="#ornaline"/></svg></div>',
+  quietSprigBottom: '<div class="deco" style="bottom:4%;left:50%;width:30%;max-width:160px;transform:translateX(-50%) scaleY(-1);opacity:.5;"><svg viewBox="0 0 100 60"><use href="#sprig"/></svg></div>',
+  scatterPetals: '<div class="deco" style="top:6%;right:8%;width:8%;max-width:40px;opacity:.7;transform:rotate(20deg);"><svg viewBox="0 0 30 40" style="--rp-l:#eec7cd;"><use href="#petal"/></svg></div>'+
+                 '<div class="deco" style="top:16%;right:16%;width:6%;max-width:30px;opacity:.55;transform:rotate(-15deg);"><svg viewBox="0 0 30 40" style="--rp-l:#f3d8c2;"><use href="#petal"/></svg></div>'+
+                 '<div class="deco" style="bottom:10%;left:9%;width:7%;max-width:34px;opacity:.6;transform:rotate(60deg);"><svg viewBox="0 0 30 40" style="--rp-l:#e6dcee;"><use href="#petal"/></svg></div>',
+  wildflowerCorner: '<div class="deco" style="top:6%;left:6%;width:9%;max-width:44px;opacity:.85;"><svg viewBox="0 0 40 40" style="--wf:#f6e6ee;"><use href="#wildflower"/></svg></div>'+
+                     '<div class="deco" style="top:10%;left:13%;width:6%;max-width:30px;opacity:.7;"><svg viewBox="0 0 40 40" style="--wf:#eaf0e0;"><use href="#wildflower"/></svg></div>',
+  goldOrnTop: '<div class="deco" style="top:5%;left:50%;width:42%;max-width:220px;transform:translateX(-50%);opacity:.7;"><svg viewBox="0 0 160 60"><use href="#flourish"/></svg></div>',
+  branchDown: '<div class="deco" style="top:0;right:0;width:26%;max-width:150px;opacity:.55;"><svg viewBox="0 0 140 140"><use href="#cornerbranch"/></svg></div>',
+  branchDownFlip: '<div class="deco" style="bottom:0;left:0;width:26%;max-width:150px;opacity:.55;transform:scale(-1,-1);"><svg viewBox="0 0 140 140"><use href="#cornerbranch"/></svg></div>'
+};
+
+var pages = [];
+
+// ---- title page ----
+pages.push({
+  variant:6, decor: DECOR.goldOrnTop + DECOR.cornerRoseBR,
+  eyebrow:'a letter, written honestly',
+  title:'Before you turn the page…',
+  body: p(
+    'What you are about to read is not a poem, and it is not meant to sound beautiful. It is simply true.'
+  ) + p(
+    'I wrote it the way I would say it to you if I were sitting across from you, holding your hands, and finally being honest about everything I have been feeling.'
+  ) + pe('Take your time with it, my love.')
+});
+
+// helper to push a letter-page
+function letterPage(variant, decor, html){
+  pages.push({ variant:variant, decor:decor, eyebrow:'', title:'', body: html });
+}
+
+letterPage(1, DECOR.cornerRoseTL,
+  p('I lost my favourite person, and the hardest part is knowing that a big part of it is because of me.') +
+  p('I don\u2019t think I have ever loved anyone in my life the way I have loved you. And honestly, I don\u2019t think I have ever been this scared of losing anyone either.') +
+  p('Even when I knew you were already going through a lot, I still couldn\u2019t keep my heart settled. I was hurting, I was overthinking, and I kept looking for reassurance from you. But now I understand something I didn\u2019t understand before.') +
+  p('While I was trying so hard to keep you close to me, I was hurting the person I was trying so desperately not to lose.')
+);
+
+letterPage(2, DECOR.sprigTop + DECOR.budBR,
+  p('I don\u2019t want to blame you for anything. I really don\u2019t.') +
+  p('I know we process things differently. I know my mind works differently from yours. You know I overthink. You know even a small change in your tone can affect me more than it should. I\u2019ve told you this before.') +
+  p('When you become distant or when there is silence, my mind doesn\u2019t stay quiet. It starts creating the worst answers by itself.') +
+  p('Sometimes I wasn\u2019t asking for anything big. I wasn\u2019t trying to fight. I wasn\u2019t trying to control you. I just wanted a little reassurance. Sometimes one simple message from you could have calmed everything inside my head.') +
+  p('But I also understand now that expecting you to always know how to handle my feelings wasn\u2019t fair either.')
+);
+
+letterPage(2, DECOR.quietDivider,
+  p('And when I didn\u2019t get the reassurance I wanted, I reacted with anger. I said things I should never have said to you.') +
+  p('And those words are something I genuinely regret.') +
+  p('I cannot take them back.') +
+  p('I cannot erase the moments when my anger made you cry, made you question yourself, or made you feel like you weren\u2019t enough.') +
+  pe('And that is the part that hurts me the most.')
+);
+
+letterPage(1, DECOR.budBL,
+  pe('Not that I didn\u2019t love you.') +
+  pe('I loved you so much.') +
+  p('But my love didn\u2019t stop me from hurting you.') +
+  p('I was immature with my own feelings. I didn\u2019t know how to handle my fear, my anger, my overthinking and my insecurity properly. Instead of communicating calmly, sometimes I reacted. Instead of protecting your heart, I ended up hurting it.') +
+  pe('And I am man enough to admit that.')
+);
+
+letterPage(3, DECOR.cornerRoseTL,
+  p('I lost a great woman who loved me because I didn\u2019t know how to handle the love I was given.') +
+  p('That\u2019s something I will carry with me for a very long time.') +
+  p('I never wanted to be the reason you cried.') +
+  p('I never wanted you to feel like you had to question your worth because of me.') +
+  p('I never wanted loving me to become something painful for you.')
+);
+
+letterPage(3, DECOR.quietSprigBottom,
+  p('If I could go back and rewrite every moment where I hurt you, I would.') +
+  p('But I can\u2019t.') +
+  p('All I can do is accept what I did and live with the fact that my actions changed something beautiful between us.')
+);
+
+letterPage(1, DECOR.sprigCornerTR,
+  p('You told me that you don\u2019t feel the same for me like you did before.') +
+  p('And honestly, I understand why.') +
+  p('After everything I said when I was angry and hurt, how could I expect your heart to remain exactly the same?') +
+  p('So I am not angry with you for that.') +
+  p('I am actually grateful that you were honest with me that you dont feel the same, even though hearing it broke something inside me.')
+);
+
+letterPage(4, DECOR.branchDown,
+  p('Yesterday, I asked you for one last chance.') +
+  p('You didn\u2019t say yes. You said you needed to think.') +
+  p('And from the way you are with me, ofc a part of you doesn\u2019t want me in your life anymore.') +
+  p('I won\u2019t force you.') +
+  p('I won\u2019t keep asking you again and again.') +
+  pe('Because loving you also means respecting your heart, even when your heart is no longer choosing me.')
+);
+
+letterPage(2, DECOR.cornerRoseBR,
+  pe('But I need you to know something.') +
+  pe('I love you.') +
+  p('I love you more deeply than I ever knew I could love someone.') +
+  p('Every feeling I share with you was real.') +
+  p('Every promise I made, I meant it. Even tho i coudnt keep my promise and still insulted you.') +
+  p('Every \u201cI love you\u201d came from the deepest part of my heart.') +
+  p('Every time I worried about you, every time I wanted you to be safe, every time I wanted you to be happy it was real.')
+);
+
+letterPage(5, DECOR.wildflowerCorner,
+  p('Maybe I didn\u2019t always show my love in the right way.') +
+  p('Maybe sometimes my fear looked like anger.') +
+  p('Maybe sometimes my love became too heavy for you.') +
+  pe('But it was never fake.') +
+  pe('Not even once.')
+);
+
+letterPage(6, DECOR.quietDivider,
+  p('These days, everything hurts.') +
+  p('There are moments when I feel like my chest is heavy and my heart just doesn\u2019t know how to accept that I might actually have lost you. I feel like I am having anxiety attach.') +
+  p('But I don\u2019t want to put that pain on you anymore.') +
+  p('You don\u2019t have to carry the consequences of my mistakes.') +
+  p('I have to carry them myself.') +
+  p('And I will.')
+);
+
+letterPage(1, DECOR.none,
+  p('Because this isn\u2019t about making you feel guilty.') +
+  pe('It\u2019s about finally understanding what I did.') +
+  p('I am sorry for every time I insulted you.') +
+  p('I am sorry for every time my anger made you forget how much I loved you.') +
+  p('I am sorry for every word that stayed in your heart longer than I ever intended.') +
+  p('I am sorry that the person who wanted to make you feel safe sometimes became the person you needed to protect yourself from.')
+);
+
+letterPage(7, DECOR.budBL + DECOR.budBR,
+  p('You deserved better from me.') +
+  p('And I should have understood that sooner.') +
+  p('But if there is even a tiny part of your heart that still remembers the good in us, I want you to know that I am still here.') +
+  p('Not asking you to forget everything.') +
+  p('Not asking you to pretend nothing happened.') +
+  p('Not asking you to suddenly feel the same again.')
+);
+
+letterPage(3, DECOR.sprigTop,
+  p('I just want you to know that if you ever give me another chance, I don\u2019t want to come back as the same person.') +
+  p('I want to come back with understanding.') +
+  p('With patience.') +
+  p('With better communication.') +
+  p('With control over my anger.') +
+  p('With the maturity I should have had before.')
+);
+
+letterPage(4, DECOR.quietDivider,
+  p('I don\u2019t want to keep saying that I love you and end up insulting you.') +
+  p('I want to learn how to make you feel loved without hurting you.') +
+  p('Because words are easy.') +
+  p('I know that now.') +
+  pe('My actions are what mattered, and that\u2019s where I failed you.')
+);
+
+letterPage(8, DECOR.cornerRoseTL,
+  p('Maybe in your story, I will always be the person who hurt you.') +
+  p('Maybe one day you will remember me and only remember the painful parts and thinking about it hurts me waay to much more.') +
+  p('But if you ever remember the good parts too, I hope you know that they were real.') +
+  p('You were real to me.') +
+  p('What we had was real to me.')
+);
+
+letterPage(2, DECOR.scatterPetals,
+  p('And you were never just someone I loved because I was scared of being alone.') +
+  pe('You became my favourite person.') +
+  p('The person I looked for.') +
+  p('The person I worried about.') +
+  p('The person whose happiness started mattering to me more than my own.') +
+  p('And losing you feels like losing a part of the life I imagined.')
+);
+
+letterPage(5, DECOR.branchDownFlip,
+  p('I don\u2019t know what you will decide.') +
+  p('I don\u2019t know if your heart can ever come back to me.') +
+  p('And I don\u2019t want to pretend that I have the right to decide that for you.') +
+  p('But if you\u2019re asking me what I want\u2026') +
+  pe('I want you.') +
+  pe('I want us.') +
+  p('I want the chance to rebuild what I broke.')
+);
+
+letterPage(6, DECOR.sprigCornerTR,
+  p('Not by begging you.') +
+  p('Not by making you feel sorry for me.') +
+  p('But by becoming someone who can love you properly.') +
+  p('I still hope for that chance.') +
+  p('I still pray for that chance.') +
+  p('And yes, a part of me will wait for you.')
+);
+
+letterPage(7, DECOR.cornerRoseBR,
+  p('But more than anything, I want you to be happy and safe.') +
+  p('With me or without me.') +
+  p('I will always pray for you.') +
+  p('And if the day ever comes when you look back at everything and decide that there is still a little bit of us worth saving, I will be here.')
+);
+
+letterPage(3, DECOR.quietSprigBottom,
+  p('I won\u2019t promise you that I will never make another mistake.') +
+  p('But I can promise you that I understand now that love isn\u2019t just about how deeply you feel.') +
+  pe('It\u2019s about how safely you make the other person feel.') +
+  p('And I wish I had understood that before I hurt you.')
+);
+
+letterPage(2, DECOR.budBL,
+  pe('I\u2019m sorry baba.') +
+  p('For the anger.') +
+  p('For the words.') +
+  p('For the fear.') +
+  p('For making you feel like you weren\u2019t enough.') +
+  p('For loving you so much but sometimes showing that love in the wrong way.') +
+  p('I wish I could take all of that pain away from you.') +
+  p('I can\u2019t.') +
+  p('So all I can do now is tell you the truth.')
+);
+
+letterPage(1, DECOR.none,
+  pe('I love you baby.') +
+  p('I am deeply sorry.') +
+  p('I know I lost you because of my own immaturity.') +
+  p('And more than anything in this world, I wish I could have loved you better before it became too late.') +
+  p('If you choose to walk away, I will respect you.') +
+  p('But if there is still even a small place in your heart where I can come back someday\u2026')
+);
+
+letterPage(8, DECOR.cornerRoseTL + DECOR.scatterPetals,
+  p('I will spend the rest of my time proving that the man who hurt you doesn\u2019t have to be the man I remain.') +
+  p('I don\u2019t want another person.') +
+  p('I don\u2019t want another love story.') +
+  pe('I wanted you.') +
+  pe('I still want you.') +
+  p('And somewhere inside me, I will always hope that one day, somehow, we find our way back to each other.') +
+  p('And if you give me chance I will make sure you are getting the best version of me.') +
+  p('No matter how hard it gets for me. I will never ever say you those things.') +
+  pe('I love you baby.')
+);
+
+// ---- final page ----
+pages.push({ isFinal:true, variant:7, decor:'' });
+
+/* ================= RENDER ================= */
+var variantClass = function(n){ return 'p-v'+n; };
+
+function pageInnerHTML(pg){
+  if(pg.isFinal){
+    return finalPageHTML();
+  }
+  var out = '<div class="paper"></div>' + (pg.decor||'') + '<div class="leaf-inner">';
+  if(pg.eyebrow) out += '<div class="page-eyebrow">'+pg.eyebrow+'</div>';
+  if(pg.title) out += '<div class="page-title">'+pg.title+'</div>';
+  out += '<div class="page-text">'+pg.body+'</div>';
+  out += '</div>';
+  return out;
+}
+
+function finalPageHTML(){
+  return '<div class="paper"></div>'+
+  '<div class="deco" style="top:0;left:0;width:32%;max-width:170px;opacity:.85;"><svg viewBox="0 0 140 140"><use href="#cornerbranch"/></svg></div>'+
+  '<div class="deco" style="bottom:0;right:0;width:32%;max-width:170px;opacity:.85;transform:scale(-1,-1);"><svg viewBox="0 0 140 140"><use href="#cornerbranch"/></svg></div>'+
+  '<div class="deco" style="top:6%;right:8%;width:9%;max-width:40px;opacity:.6;transform:rotate(15deg);"><svg viewBox="0 0 40 40" style="--wf:#f6e6ee;"><use href="#wildflower"/></svg></div>'+
+  '<div class="deco" style="bottom:9%;left:10%;width:7%;max-width:34px;opacity:.55;transform:rotate(-10deg);"><svg viewBox="0 0 40 40" style="--wf:#eaf0e0;"><use href="#wildflower"/></svg></div>'+
+  '<div class="leaf-inner" style="align-items:center;text-align:center;justify-content:center;">'+
+    '<div class="page-eyebrow" style="font-size:13px;letter-spacing:1px;">THE LAST PAGE</div>'+
+    '<div class="page-title" style="margin-bottom:2px;">But not the end of what I feel.</div>'+
+    '<svg viewBox="0 0 120 120" style="width:min(30%,140px);height:auto;margin:14px 0;--rp-l:#f1d0d6;--rp-d:#d9a5ad;--rp-c:#b06e7c;--rp-cc:#8a4457;"><use href="#rose"/></svg>'+
+    '<div style="font-family:var(--script);font-size:clamp(28px,5vw,44px);color:var(--plum);margin:10px 0 18px 0;line-height:1.3;">I love you,<br>baby.</div>'+
+    '<div class="page-text" style="flex:none;max-width:34em;">'+
+      '<p>No matter what you decide, thank you for being the person I love the most.</p>'+
+    '</div>'+
+    '<div style="font-family:var(--serif);font-style:italic;font-size:14px;color:var(--rose-deep);margin-top:10px;max-width:26em;">'+
+      '&mdash; from the person who will always be grateful<br>that he got to love you'+
+    '</div>'+
+    '<button id="closeBtn2" type="button" style="margin-top:22px;font-family:var(--serif);font-style:italic;letter-spacing:1.5px;font-size:13px;color:var(--plum);background:transparent;border:1px solid var(--gold);padding:8px 22px;border-radius:2px;cursor:pointer;">Close the book</button>'+
+  '</div>'+
+  '<div id="finalPetals" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>';
+}
+
+/* ================= STATE ================= */
+var current = 0; // active/right page index
+var isMobile = function(){ return window.innerWidth <= 880; };
+var animating = false;
+
+var leftPageEl = document.getElementById('leftPage');
+var rightPageEl = document.getElementById('rightPage');
+var flipLeaf = document.getElementById('flipLeaf');
+var pageIndicator = document.getElementById('pageIndicator');
+var prevBtn = document.getElementById('prevBtn');
+var nextBtn = document.getElementById('nextBtn');
+
+function renderStatic(){
+  var mobile = isMobile();
+  rightPageEl.className = 'page-static ' + variantClass(pages[current].variant || 1);
+  rightPageEl.innerHTML = pageInnerHTML(pages[current]);
+  if(!mobile){
+    if(current > 0){
+      var lp = pages[current-1];
+      leftPageEl.className = 'page-static ' + variantClass(lp.variant || 1);
+      leftPageEl.innerHTML = pageInnerHTML(lp);
+    } else {
+      leftPageEl.className = 'page-static';
+      leftPageEl.innerHTML = '<div class="paper"></div><div class="leaf-inner" style="align-items:center;justify-content:center;text-align:center;">'+
+        '<svg viewBox="0 0 120 120" style="width:36%;--rp-l:#eec7cd;--rp-d:#d9a5ad;--rp-c:#b06e7c;--rp-cc:#8a4457;"><use href="#rose"/></svg>'+
+        '<div style="font-family:var(--script);color:var(--rose-deep);font-size:15px;margin-top:14px;">a letter, page by page</div>'+
+        '</div>';
+    }
+  }
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === pages.length - 1;
+  pageIndicator.textContent = (current+1) + ' / ' + pages.length;
+
+  var closeBtn2 = document.getElementById('closeBtn2');
+  if(closeBtn2){ closeBtn2.addEventListener('click', closeBook); }
+  if(pages[current].isFinal){ spawnFinalPetals(); }
+}
+
+/* ================= FLIP ANIMATION ================= */
+function setBandFaces(front, back){
+  var bands = flipLeaf.querySelectorAll('.band');
+  for(var i=0;i<bands.length;i++){
+    bands[i].querySelector('.face.front').innerHTML = front;
+    bands[i].querySelector('.face.back').innerHTML = back;
+    bands[i].classList.remove('shading');
+  }
+}
+
+function goNext(){
+  if(animating || current >= pages.length-1) return;
+  animating = true;
+  var mobile = isMobile();
+  var frontPage = pages[current];
+  var backPage = pages[current+1];
+  flipLeaf.className = 'flip-leaf active mode-right';
+  setBandFaces(pageInnerHTML(frontPage), pageInnerHTML(backPage));
+  rightPageEl.style.visibility = 'hidden';
+
+  requestAnimationFrame(function(){
+    var bands = flipLeaf.querySelectorAll('.band');
+    for(var i=0;i<bands.length;i++) bands[i].classList.add('shading');
+    flipLeaf.classList.add('next-active');
+  });
+
+  var dur = reduced ? 380 : 1260;
+  setTimeout(function(){
+    current += 1;
+    finishFlip();
+  }, dur);
+}
+
+function goPrev(){
+  if(animating || current <= 0) return;
+  animating = true;
+  var frontPage = pages[current-1];
+  var backPage = pages[current];
+  flipLeaf.className = 'flip-leaf active mode-right';
+  setBandFaces(pageInnerHTML(frontPage), pageInnerHTML(backPage));
+  // start rotated to -178 (showing back) then animate to 0 (showing front)
+  var bands = flipLeaf.querySelectorAll('.band');
+  for(var i=0;i<bands.length;i++){ bands[i].style.transition='none'; bands[i].style.transform='rotateY(-178deg)'; }
+  rightPageEl.style.visibility = 'hidden';
+
+  requestAnimationFrame(function(){
+    for(var i=0;i<bands.length;i++){
+      bands[i].style.transition = '';
+      bands[i].classList.add('shading');
+    }
+    flipLeaf.classList.add('prev-active');
+  });
+
+  var dur = reduced ? 380 : 1260;
+  setTimeout(function(){
+    current -= 1;
+    finishFlip();
+  }, dur);
+}
+
+function finishFlip(){
+  flipLeaf.classList.remove('active','next-active','prev-active');
+  var bands = flipLeaf.querySelectorAll('.band');
+  for(var i=0;i<bands.length;i++){
+    bands[i].style.transform = '';
+    bands[i].style.transition = '';
+    bands[i].classList.remove('shading');
+  }
+  rightPageEl.style.visibility = 'visible';
+  renderStatic();
+  animating = false;
+}
+
+/* ================= FINAL PAGE PETALS ================= */
+var petalsSpawned = false;
+function spawnFinalPetals(){
+  if(petalsSpawned || reduced) return;
+  petalsSpawned = true;
+  setTimeout(function(){
+    var host = document.getElementById('finalPetals');
+    if(!host) return;
+    for(var i=0;i<14;i++){
+      (function(i){
+        var el = document.createElement('div');
+        el.className = 'petal-fall';
+        el.style.position='absolute';
+        el.style.top='-6%';
+        el.style.left=(8+Math.random()*84)+'%';
+        el.style.width='14px'; el.style.height='18px';
+        el.style.opacity='0';
+        el.innerHTML = '<svg viewBox="0 0 30 40" style="width:100%;height:100%;--rp-l:'+(i%2?'#eec7cd':'#f3d8c2')+';"><use href="#petal"/></svg>';
+        el.style.animation = 'driftDown '+(5+Math.random()*3)+'s ease-in forwards';
+        el.style.animationDelay = (i*0.28)+'s';
+        host.appendChild(el);
+        setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 9000+i*280);
+      })(i);
+    }
+  }, 500);
+}
+
+/* ================= COVER OPEN/CLOSE ================= */
+var book = document.getElementById('book');
+var cover = document.getElementById('cover');
+var closeBtnTop = document.getElementById('closeBtn');
+var opened = false;
+
+function openBook(){
+  if(opened) return;
+  opened = true;
+  renderStatic();
+  cover.style.transform = 'rotateY(-172deg)';
+  setTimeout(function(){ closeBtnTop.classList.add('show'); }, reduced?400:1100);
+}
+
+function closeBook(){
+  if(!opened) return;
+  cover.style.transform = 'rotateY(0deg)';
+  closeBtnTop.classList.remove('show');
+  setTimeout(function(){
+    opened = false;
+    current = 0;
+    petalsSpawned = false;
+    renderStatic();
+  }, reduced?400:1400);
+}
+
+document.getElementById('openBtn').addEventListener('click', openBook);
+closeBtnTop.addEventListener('click', closeBook);
+
+/* ================= NAV WIRING ================= */
+nextBtn.addEventListener('click', goNext);
+prevBtn.addEventListener('click', goPrev);
+document.getElementById('zoneRight').addEventListener('click', function(){ if(opened) goNext(); });
+document.getElementById('zoneLeft').addEventListener('click', function(){ if(opened) goPrev(); });
+
+document.addEventListener('keydown', function(e){
+  if(!opened) return;
+  if(e.key === 'ArrowRight') goNext();
+  if(e.key === 'ArrowLeft') goPrev();
+});
+
+/* swipe support */
+var touchStartX = null;
+document.getElementById('bookWrap').addEventListener('touchstart', function(e){
+  touchStartX = e.touches[0].clientX;
+}, {passive:true});
+document.getElementById('bookWrap').addEventListener('touchend', function(e){
+  if(touchStartX === null || !opened) return;
+  var dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 50){
+    if(dx < 0) goNext(); else goPrev();
+  }
+  touchStartX = null;
+}, {passive:true});
+
+window.addEventListener('resize', function(){ if(opened) renderStatic(); });
+
+/* initial render (kept hidden until opened, but prep first page) */
+renderStatic();
+
+})();
+</script>
+</body>
+</html>
