@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3dfe6">
+<title>For You, Baba</title>
+<style>
+:root{
+  --ivory:#fffaf3; --cream:#f8efe4; --blush:#f8e3e7; --baby:#fdeff2; --peach:#fbe6d4;
+  --lav:#eae1f7; --lav-deep:#cdb8e8; --sage:#eef2e7; --sage-deep:#a9bba0;
+  --mauve:#dcb9c8; --mauve-deep:#8c4f63; --rose:#c9808f; --rose-deep:#9c4f63;
+  --gold:#c8a46a; --gold-deep:#a9824c; --powder:#dce9ef;
+  --ink:#4a3540; --ink-soft:#6b565f;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua","Noto Serif",Georgia,serif;
+  --hand:"Snell Roundhand","Segoe Script","Bradley Hand","Lucida Handwriting","Apple Chancery","URW Chancery L",cursive;
+  --ui:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--serif);color:var(--ink);min-height:100vh;min-height:100svh;
+  -webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:calc(14px + env(safe-area-inset-top)) 10px calc(18px + env(safe-area-inset-bottom));
+}
+::selection{background:#f3c6d1;color:#3d2a33}
+:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px;border-radius:8px}
+button{font:inherit;background:none;border:0;color:inherit}
+
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(120% 55% at 50% 108%,rgba(236,196,150,.45),transparent 62%),
+    radial-gradient(85% 50% at 10% 6%,rgba(220,210,238,.7),transparent 70%),
+    radial-gradient(70% 45% at 94% 22%,rgba(247,214,224,.75),transparent 72%),
+    linear-gradient(180deg,#f2e8f2 0%,#f8e6ea 45%,#fbeade 80%,#fdf2e4 100%);
+}
+
+.scene{position:relative;z-index:1;width:100%;max-width:1100px;display:flex;flex-direction:column;align-items:center;gap:14px}
+
+/* ================= BOOK ================= */
+.stage{position:relative;width:100%;display:flex;justify-content:center;perspective:2400px}
+.book{
+  position:relative;width:min(92vw,940px);height:min(80vh,600px);min-height:360px;
+  transform-style:preserve-3d;
+}
+.book-shadow{
+  position:absolute;left:6%;right:6%;bottom:-22px;height:34px;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(90,55,60,.38),rgba(90,55,60,0) 72%);
+  filter:blur(2px);z-index:0;
+}
+.spine-block{
+  position:absolute;left:50%;top:2%;bottom:2%;width:22px;margin-left:-11px;z-index:6;
+  background:linear-gradient(90deg,#6d4552 0%,#8c5d6c 18%,#a9738a 50%,#8c5d6c 82%,#6d4552 100%);
+  border-radius:3px;box-shadow:0 6px 18px rgba(70,35,45,.4), inset 0 0 6px rgba(0,0,0,.25);
+}
+.spine-block::before{
+  content:"";position:absolute;inset:3px 9px;background:linear-gradient(180deg,rgba(200,164,106,.55),rgba(200,164,106,.15) 8%,rgba(200,164,106,.15) 92%,rgba(200,164,106,.55));
+  border-radius:2px;
+}
+.ribbon{position:absolute;left:50%;top:0;width:9px;height:46px;margin-left:-4.5px;z-index:7;
+  background:linear-gradient(180deg,#c8a46a,#a9824c);clip-path:polygon(0 0,100% 0,100% 78%,50% 100%,0 78%);
+  box-shadow:0 2px 6px rgba(70,35,45,.35);
+}
+
+.leaf{
+  position:absolute;top:0;bottom:0;width:calc(50% - 12px);z-index:2;
+  border-radius:3px 10px 10px 3px/3px 6px 6px 3px;
+  box-shadow:0 18px 40px -22px rgba(90,55,65,.5), 0 2px 6px rgba(90,55,65,.15);
+  overflow:hidden;
+}
+.leaf-right{right:0;border-radius:10px 3px 3px 10px/6px 3px 3px 6px}
+.leaf-left{left:0}
+.leaf::after{ /* stacked page edge shading */
+  content:"";position:absolute;top:2%;bottom:2%;width:10px;z-index:3;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(150,110,95,.16) 0 1px,transparent 1px 3px);
+}
+.leaf-left::after{right:0}
+.leaf-right::after{left:0}
+
+.leaf-inner{
+  position:relative;height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
+  padding:clamp(1.6rem,5vw,2.6rem) clamp(1.4rem,4.6vw,2.3rem) clamp(1.8rem,4vw,2.2rem);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .6 0 0 0 0 .45 0 0 0 0 .4 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.leaf-inner::before{
+  content:"";position:absolute;inset:9px;border:1px solid rgba(200,164,106,.42);border-radius:2px;pointer-events:none;z-index:1;
+}
+.tint-a{background:var(--ivory)}
+.tint-b{background:var(--blush)}
+.tint-c{background:var(--peach)}
+.tint-d{background:var(--lav)}
+.tint-e{background:var(--sage)}
+.tint-f{background:var(--baby)}
+
+.corner-orn{position:absolute;width:88px;height:88px;z-index:1;pointer-events:none;opacity:.95}
+.corner-orn.tl{top:6px;left:6px}
+.corner-orn.tr{top:6px;right:6px;transform:scaleX(-1)}
+.corner-orn svg{width:100%;height:100%;display:block}
+
+.page-num{position:absolute;left:0;right:0;bottom:10px;text-align:center;font-family:var(--ui);font-size:.72rem;letter-spacing:.12em;color:var(--rose-deep);opacity:.75;z-index:1}
+
+.letter-text{position:relative;z-index:2;margin-top:.3rem}
+.letter-text p{font-size:clamp(1rem,3.6vw,1.15rem);line-height:1.78;color:var(--ink);margin:0 0 1.05em;text-wrap:pretty}
+.letter-text p.lead{font-size:clamp(1.14rem,4.4vw,1.32rem);line-height:1.6}
+.letter-text p.emph{font-style:italic;color:var(--rose-deep);font-size:clamp(1.12rem,4.4vw,1.34rem);text-align:center;margin:1.2em 0}
+.letter-text .stanza{margin:0 0 1.05em}
+.letter-text .stanza p{margin:0 0 .22em}
+.letter-text p:last-child,.letter-text .stanza:last-child p:last-child{margin-bottom:0}
+
+/* ---------- cover ---------- */
+.cover{
+  position:absolute;inset:0;z-index:25;cursor:pointer;border-radius:6px 12px 12px 6px;
+  transform-style:preserve-3d;transform-origin:0% 50%;
+  transition:transform 1.15s cubic-bezier(.32,.68,.24,1);
+}
+.cover.opened{transform:rotateY(-172deg)}
+.cover-face,.cover-inside{
+  position:absolute;inset:0;border-radius:inherit;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+}
+.cover-inside{transform:rotateY(180deg);background:var(--ivory);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .6 0 0 0 0 .45 0 0 0 0 .4 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem;
+}
+.cover-inside p{font-family:var(--hand);font-size:clamp(1.3rem,5vw,1.8rem);color:var(--rose-deep);line-height:1.5}
+
+.cover-face{
+  background:
+    linear-gradient(160deg,rgba(255,255,255,.10),rgba(0,0,0,.08) 60%),
+    radial-gradient(120% 90% at 20% 0%,rgba(255,255,255,.18),transparent 55%),
+    linear-gradient(135deg,#caa1af 0%,#b98195 45%,#9c5f74 100%);
+  box-shadow:0 30px 60px -22px rgba(80,40,50,.55), inset 0 0 0 1px rgba(255,255,255,.15);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:8% 8%;color:#fbeef1;overflow:hidden;
+}
+.cover-face::before{ /* fabric grain */
+  content:"";position:absolute;inset:0;opacity:.5;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23f)'/%3E%3C/svg%3E");
+}
+.cover-border{position:absolute;inset:14px;border:2px solid rgba(233,209,158,.85);border-radius:4px;pointer-events:none}
+.cover-border::before{content:"";position:absolute;inset:7px;border:1px solid rgba(233,209,158,.55);border-radius:2px}
+.cover-orn{width:min(46%,190px);opacity:.95;position:relative;z-index:1}
+.cover-orn svg{width:100%;height:auto;display:block}
+.cover-orn.top{margin-bottom:.4rem}
+.cover-orn.bottom{margin-top:.6rem;transform:rotate(180deg)}
+.cover-text{position:relative;z-index:1;max-width:22rem}
+.cover-kicker{font-family:var(--serif);font-style:italic;font-size:clamp(1.28rem,5.4vw,1.72rem);line-height:1.35;letter-spacing:.01em}
+.cover-sub{font-family:var(--ui);font-size:.82rem;letter-spacing:.24em;text-transform:uppercase;color:#f3d9c8;margin:.65rem 0}
+.cover-rule{width:64px;height:1px;margin:.9rem auto;background:linear-gradient(90deg,transparent,rgba(233,209,158,.9),transparent)}
+.cover-name{font-family:var(--hand);font-size:clamp(1.7rem,7.5vw,2.35rem);color:#fff}
+.cover-hint{position:absolute;bottom:8%;left:0;right:0;text-align:center;font-family:var(--ui);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,244,247,.8);animation:hintPulse 2.6s ease-in-out infinite}
+@keyframes hintPulse{0%,100%{opacity:.55}50%{opacity:1}}
+
+/* ---------- tap zones ---------- */
+.tapzone{position:absolute;top:0;bottom:0;width:13%;z-index:8;background:transparent;cursor:pointer}
+.tapzone.tp-left{left:0}
+.tapzone.tp-right{right:0}
+html:not(.opened) .tapzone{display:none}
+
+/* ---------- turn overlay bands ---------- */
+.turn-overlay{position:absolute;top:0;z-index:15;pointer-events:none}
+.band{position:absolute;inset:0;overflow:hidden;transform-style:preserve-3d;will-change:transform}
+.band-content{position:absolute;inset:0}
+.band-shade{position:absolute;inset:0;opacity:0;pointer-events:none}
+
+@keyframes curlNext{0%{transform:rotateY(0deg) translateZ(0)}42%{transform:rotateY(-78deg) translateZ(20px)}100%{transform:rotateY(-165deg) translateZ(0)}}
+@keyframes curlPrev{0%{transform:rotateY(0deg) translateZ(0)}42%{transform:rotateY(78deg) translateZ(20px)}100%{transform:rotateY(165deg) translateZ(0)}}
+@keyframes shadeWave{0%{opacity:0}45%{opacity:.55}100%{opacity:.1}}
+
+/* ---------- controls ---------- */
+.controls{display:flex;align-items:center;gap:18px;z-index:2}
+.ctrl{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,250,246,.75);border:1px solid rgba(200,164,106,.5);color:var(--rose-deep);
+  box-shadow:0 8px 20px -10px rgba(140,79,99,.5);cursor:pointer;transition:opacity .3s,transform .2s;
+}
+.ctrl:hover{transform:translateY(-2px)}
+.ctrl:disabled{opacity:.3;cursor:default;transform:none}
+.ctrl svg{width:18px;height:18px}
+.pageno{font-family:var(--ui);font-size:.78rem;letter-spacing:.1em;color:var(--ink-soft);min-width:96px;text-align:center}
+html:not(.opened) .controls{display:none}
+
+/* ---------- open hint (before opening) ---------- */
+.open-hint{font-family:var(--ui);font-size:.8rem;letter-spacing:.1em;color:var(--ink-soft);text-align:center;opacity:.85}
+html.opened .open-hint{display:none}
+
+/* ---------- final page extras ---------- */
+.final-wrap{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.2rem}
+.final-kicker{font-family:var(--ui);font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep)}
+.final-sub{font-style:italic;color:var(--ink-soft);font-size:clamp(1rem,3.8vw,1.16rem);margin:.6rem 0 1.1rem}
+.final-bloom{width:min(58%,150px);margin:.2rem auto .9rem}
+.final-bloom svg{width:100%;height:auto;display:block}
+.final-love{font-family:var(--hand);color:var(--rose-deep);font-size:clamp(2rem,9vw,2.9rem);line-height:1.18;margin:.2rem 0 1rem}
+.final-body{font-size:clamp(1rem,3.6vw,1.14rem);line-height:1.7;color:var(--ink);max-width:26rem;margin:0 auto 1.2rem}
+.final-sig{font-style:italic;color:var(--ink-soft);font-size:clamp(.92rem,3.2vw,1.02rem);line-height:1.6}
+.final-frame{position:absolute;inset:8px;border:1.5px solid rgba(200,164,106,.6);border-radius:4px;pointer-events:none}
+.final-frame::before{content:"";position:absolute;inset:6px;border:1px solid rgba(200,164,106,.32);border-radius:2px}
+.close-book-btn{
+  margin-top:1.1rem;padding:.7rem 1.5rem;border-radius:999px;border:1px solid rgba(200,164,106,.7);
+  background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,238,242,.5));
+  color:var(--rose-deep);font:500 .86rem/1 var(--ui);letter-spacing:.06em;cursor:pointer;
+  box-shadow:0 10px 22px -12px rgba(156,79,99,.55);
+}
+.close-book-btn:hover{transform:translateY(-1px)}
+
+/* ---------- after-final petals ---------- */
+.after-petals{position:fixed;inset:0;z-index:40;overflow:hidden;pointer-events:none}
+.after-petal{position:absolute;top:-5%;width:14px;height:14px;opacity:0;animation:petalFall linear forwards}
+.after-petal::before{content:"";position:absolute;inset:0;border-radius:0 100% 0 100%;
+  background:radial-gradient(circle at 30% 30%,#fff5f7,#f6cdd6 60%,#eaa9ba)}
+@keyframes petalFall{
+  0%{transform:translate3d(0,-10vh,0) rotate(0deg);opacity:0}
+  10%{opacity:.85}
+  90%{opacity:.7}
+  100%{transform:translate3d(var(--dx,40px),112vh,0) rotate(200deg);opacity:0}
+}
+
+/* ---------- mobile: single-page book ---------- */
+@media (max-width:759px){
+  .leaf-left,.spine-block,.ribbon{display:none}
+  .leaf-right{width:100%;left:0;right:0;border-radius:8px}
+  .leaf-right::after{display:none}
+  .book{height:min(76vh,640px)}
+  .book-shadow{left:4%;right:4%}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.2s!important}
+  .cover-hint{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true"></div>
+
+<!-- shared botanical artwork -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<defs>
+  <symbol id="rose" viewBox="0 0 100 100">
+    <g class="rl1"><ellipse cx="50" cy="23" rx="20" ry="23" fill="#f1cbd3" stroke="#cf8b9b" stroke-width=".9"/>
+      <ellipse cx="50" cy="23" rx="20" ry="23" transform="rotate(60 50 50)" fill="#f1cbd3" stroke="#cf8b9b" stroke-width=".9"/>
+      <ellipse cx="50" cy="23" rx="20" ry="23" transform="rotate(120 50 50)" fill="#f1cbd3" stroke="#cf8b9b" stroke-width=".9"/>
+      <ellipse cx="50" cy="23" rx="20" ry="23" transform="rotate(180 50 50)" fill="#f1cbd3" stroke="#cf8b9b" stroke-width=".9"/>
+      <ellipse cx="50" cy="23" rx="20" ry="23" transform="rotate(240 50 50)" fill="#f1cbd3" stroke="#cf8b9b" stroke-width=".9"/>
+      <ellipse cx="50" cy="23" rx="20" ry="23" transform="rotate(300 50 50)" fill="#f1cbd3" stroke="#cf8b9b" stroke-width=".9"/></g>
+    <g class="rl2"><ellipse cx="50" cy="31" rx="16" ry="18" transform="rotate(36 50 50)" fill="#ebb9c5" stroke="#cf8b9b" stroke-width=".9"/>
+      <ellipse cx="50" cy="31" rx="16" ry="18" transform="rotate(108 50 50)" fill="#ebb9c5" stroke="#cf8b9b" stroke-width=".9"/>
+      <ellipse cx="50" cy="31" rx="16" ry="18" transform="rotate(180 50 50)" fill="#ebb9c5" stroke="#cf8b9b" stroke-width=".9"/>
+      <ellipse cx="50" cy="31" rx="16" ry="18" transform="rotate(252 50 50)" fill="#ebb9c5" stroke="#cf8b9b" stroke-width=".9"/>
+      <ellipse cx="50" cy="31" rx="16" ry="18" transform="rotate(324 50 50)" fill="#ebb9c5" stroke="#cf8b9b" stroke-width=".9"/></g>
+    <g class="rl3"><ellipse cx="50" cy="39" rx="12" ry="13" transform="rotate(20 50 50)" fill="#e2a4b3" stroke="#cf8b9b" stroke-width=".9"/>
+      <ellipse cx="50" cy="39" rx="12" ry="13" transform="rotate(110 50 50)" fill="#e2a4b3" stroke="#cf8b9b" stroke-width=".9"/>
+      <ellipse cx="50" cy="39" rx="12" ry="13" transform="rotate(200 50 50)" fill="#e2a4b3" stroke="#cf8b9b" stroke-width=".9"/>
+      <ellipse cx="50" cy="39" rx="12" ry="13" transform="rotate(290 50 50)" fill="#e2a4b3" stroke="#cf8b9b" stroke-width=".9"/></g>
+    <circle cx="50" cy="50" r="7" fill="#c9808f"/>
+    <path d="M44 50c0-5 5-8 9-5s3 8-1 9-8-2-7-6" fill="none" stroke="#cf8b9b" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M26 34c4-9 13-14 23-14M76 60c-3 9-11 15-21 16" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.7" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="roseLav" viewBox="0 0 100 100">
+    <use href="#rose" width="100" height="100" style="--ra:#e6dcf4"/>
+  </symbol>
+  <symbol id="leaf" viewBox="0 0 40 20">
+    <path d="M1 10C9 0 27 0 39 10 27 20 9 20 1 10Z" fill="#a9bba0"/>
+    <path d="M3 10H34" fill="none" stroke="rgba(255,255,255,.5)" stroke-width=".8" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="bud" viewBox="0 0 30 56">
+    <path d="M15 3C25 13 27 27 15 40 3 27 5 13 15 3Z" fill="#f1cbd3" stroke="#cf8b9b" stroke-width=".8"/>
+    <path d="M15 8C19 17 19 27 15 35" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1"/>
+    <path d="M15 40C8 37 3 32 2 25 9 26 13 31 15 40ZM15 40C22 37 27 32 28 25 21 26 17 31 15 40Z" fill="#a9bba0"/>
+    <path d="M15 40V55" fill="none" stroke="#8fa686" stroke-width="1.6" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="blossom" viewBox="0 0 40 40">
+    <g><ellipse cx="20" cy="10" rx="6" ry="9" fill="#e9e0f5" stroke="#b9a6d6" stroke-width=".7"/>
+      <ellipse cx="20" cy="10" rx="6" ry="9" transform="rotate(72 20 20)" fill="#e9e0f5" stroke="#b9a6d6" stroke-width=".7"/>
+      <ellipse cx="20" cy="10" rx="6" ry="9" transform="rotate(144 20 20)" fill="#e9e0f5" stroke="#b9a6d6" stroke-width=".7"/>
+      <ellipse cx="20" cy="10" rx="6" ry="9" transform="rotate(216 20 20)" fill="#e9e0f5" stroke="#b9a6d6" stroke-width=".7"/>
+      <ellipse cx="20" cy="10" rx="6" ry="9" transform="rotate(288 20 20)" fill="#e9e0f5" stroke="#b9a6d6" stroke-width=".7"/></g>
+    <circle cx="20" cy="20" r="3.4" fill="#d8b878"/>
+  </symbol>
+  <symbol id="heart" viewBox="0 0 24 22">
+    <path d="M12 21C4 14 1 10 1 6.5 1 3.5 3.4 1 6.4 1 8.8 1 11 2.6 12 4.6 13 2.6 15.2 1 17.6 1 20.6 1 23 3.5 23 6.5 23 10 20 14 12 21Z" fill="#c9808f"/>
+  </symbol>
+  <symbol id="clA" viewBox="0 0 320 320">
+    <path d="M-6 232C48 212 74 162 112 128S206 76 322 46" fill="none" stroke="#9db294" stroke-width="2.4" stroke-linecap="round"/>
+    <use href="#leaf" width="64" height="32" transform="translate(22 216) rotate(-58) translate(0 -16)"/>
+    <use href="#leaf" width="60" height="30" transform="translate(56 190) rotate(22) translate(0 -15)"/>
+    <use href="#leaf" width="66" height="33" transform="translate(94 152) rotate(-68) translate(0 -16.5)"/>
+    <use href="#leaf" width="60" height="30" transform="translate(122 126) rotate(28) translate(0 -15)"/>
+    <use href="#leaf" width="64" height="32" transform="translate(160 102) rotate(-48) translate(0 -16)"/>
+    <use href="#bud" x="206" y="92" width="22" height="41" transform="rotate(32 217 112)"/>
+    <use href="#bud" x="70" y="220" width="20" height="37" transform="rotate(-24 80 238)"/>
+    <use href="#blossom" x="148" y="108" width="34" height="34"/>
+    <use href="#blossom" x="26" y="232" width="30" height="30"/>
+    <use href="#rose" x="0" y="122" width="96" height="96"/>
+    <use href="#rose" x="132" y="4" width="88" height="88" style="--ra:#e6dcf4"/>
+    <use href="#rose" x="20" y="20" width="134" height="134"/>
+  </symbol>
+  <symbol id="clB" viewBox="0 0 280 280">
+    <path d="M-4 180C40 170 70 132 100 100S184 50 282 34" fill="none" stroke="#9db294" stroke-width="2.4" stroke-linecap="round"/>
+    <use href="#leaf" width="58" height="29" transform="translate(20 174) rotate(-55) translate(0 -14.5)"/>
+    <use href="#leaf" width="54" height="27" transform="translate(52 152) rotate(24) translate(0 -13.5)"/>
+    <use href="#bud" x="160" y="64" width="20" height="37" transform="rotate(30 170 82)"/>
+    <use href="#blossom" x="122" y="84" width="28" height="28"/>
+    <use href="#blossom" x="14" y="190" width="26" height="26"/>
+    <use href="#rose" x="0" y="112" width="76" height="76"/>
+    <use href="#rose" x="112" y="0" width="72" height="72" style="--ra:#e6dcf4"/>
+    <use href="#rose" x="14" y="12" width="112" height="112"/>
+  </symbol>
+  <symbol id="ornA" viewBox="0 0 120 120">
+    <path d="M10 110C30 90 40 60 60 30" fill="none" stroke="#9db294" stroke-width="1.6" stroke-linecap="round"/>
+    <use href="#leaf" width="34" height="17" transform="translate(18 96) rotate(-50) translate(0 -8.5)"/>
+    <use href="#bud" x="46" y="18" width="16" height="30" transform="rotate(20 54 33)"/>
+    <use href="#rose" x="4" y="4" width="70" height="70"/>
+  </symbol>
+  <symbol id="ornB" viewBox="0 0 120 120">
+    <path d="M14 108C34 92 46 66 58 34" fill="none" stroke="#9db294" stroke-width="1.6" stroke-linecap="round"/>
+    <use href="#leaf" width="30" height="15" transform="translate(20 92) rotate(-46) translate(0 -7.5)"/>
+    <use href="#blossom" x="30" y="60" width="30" height="30"/>
+    <use href="#blossom" x="46" y="10" width="24" height="24"/>
+    <use href="#bud" x="6" y="14" width="14" height="26" transform="rotate(-18 13 27)"/>
+  </symbol>
+  <symbol id="ornC" viewBox="0 0 120 120">
+    <use href="#rose" x="30" y="30" width="62" height="62" style="--ra:#e6dcf4"/>
+    <use href="#blossom" x="4" y="6" width="22" height="22"/>
+    <use href="#blossom" x="86" y="70" width="20" height="20"/>
+    <use href="#leaf" width="26" height="13" transform="translate(14 96) rotate(-30) translate(0 -6.5)"/>
+  </symbol>
+  <symbol id="finalBloom" viewBox="0 0 200 140">
+    <path d="M6 128C40 110 62 84 82 50" fill="none" stroke="#9db294" stroke-width="2" stroke-linecap="round"/>
+    <path d="M194 128C160 110 138 84 118 50" fill="none" stroke="#9db294" stroke-width="2" stroke-linecap="round"/>
+    <use href="#leaf" width="42" height="21" transform="translate(24 108) rotate(-46) translate(0 -10.5)"/>
+    <use href="#leaf" width="42" height="21" transform="translate(176 108) rotate(46) translate(0 -10.5) scale(-1,1) translate(-42,0)"/>
+    <use href="#bud" x="60" y="10" width="18" height="34" transform="rotate(-12 69 27)"/>
+    <use href="#bud" x="122" y="10" width="18" height="34" transform="rotate(12 131 27)"/>
+    <use href="#blossom" x="24" y="70" width="26" height="26"/>
+    <use href="#blossom" x="150" y="70" width="26" height="26"/>
+    <use href="#rose" x="66" y="18" width="68" height="68"/>
+  </symbol>
+</defs>
+</svg>
+
+<div class="scene">
+  <div class="stage">
+    <div class="book" id="book">
+      <div class="book-shadow" aria-hidden="true"></div>
+      <div class="spine-block" aria-hidden="true"></div>
+      <div class="ribbon" aria-hidden="true"></div>
+
+      <div class="leaf leaf-left" id="leftLeaf"><div class="leaf-inner" id="leftLeafInner"></div></div>
+      <div class="leaf leaf-right" id="rightLeaf"><div class="leaf-inner" id="rightLeafInner"></div></div>
+
+      <button class="tapzone tp-left" id="tapPrev" aria-label="Previous page" tabindex="-1"></button>
+      <button class="tapzone tp-right" id="tapNext" aria-label="Next page" tabindex="-1"></button>
+
+      <div class="cover" id="cover" tabindex="0" role="button" aria-label="Open the book">
+        <div class="cover-face">
+          <div class="cover-border"></div>
+          <div class="cover-orn top"><svg viewBox="0 0 320 320"><use href="#clA" width="320" height="320"/></svg></div>
+          <div class="cover-text">
+            <p class="cover-kicker">For The Person I Love The Most</p>
+            <p class="cover-sub">A Letter From My Heart</p>
+            <div class="cover-rule"></div>
+            <p class="cover-name">For You, Baba <span aria-hidden="true">♡</span></p>
+          </div>
+          <div class="cover-orn bottom"><svg viewBox="0 0 320 320"><use href="#clA" width="320" height="320"/></svg></div>
+          <div class="cover-hint">tap to open</div>
+        </div>
+        <div class="cover-inside">
+          <p>with all my heart</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="open-hint">tap the book to open it</div>
+
+  <div class="controls" id="controls">
+    <button class="ctrl" id="btnPrev" aria-label="Previous page">
+      <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <span class="pageno" id="pageNo"></span>
+    <button class="ctrl" id="btnNext" aria-label="Next page">
+      <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="after-petals" id="afterPetals" aria-hidden="true"></div>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement;
+  var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var book=document.getElementById('book');
+  var cover=document.getElementById('cover');
+  var leftLeaf=document.getElementById('leftLeaf');
+  var rightLeaf=document.getElementById('rightLeaf');
+  var leftInner=document.getElementById('leftLeafInner');
+  var rightInner=document.getElementById('rightLeafInner');
+  var tapPrev=document.getElementById('tapPrev');
+  var tapNext=document.getElementById('tapNext');
+  var btnPrev=document.getElementById('btnPrev');
+  var btnNext=document.getElementById('btnNext');
+  var pageNo=document.getElementById('pageNo');
+  var afterPetals=document.getElementById('afterPetals');
+
+  var TINTS=['tint-a','tint-b','tint-c','tint-d','tint-e','tint-f'];
+  var ORNS=['ornA','ornB','ornC'];
+
+  function orn(i,side){
+    return '<div class="corner-orn '+(side==='r'?'tr':'tl')+'"><svg viewBox="0 0 120 120"><use href="#'+ORNS[i%ORNS.length]+'" width="120" height="120"/></svg></div>';
+  }
+
+  function leafHTML(idx,bodyHtml,showNum){
+    var tint=TINTS[idx%TINTS.length];
+    var side=(idx%2===0)?'r':'l';
+    var num=showNum?('<div class="page-num">'+idx+'</div>'):'';
+    return '<div class="'+tint+'" style="position:absolute;inset:0;z-index:0"></div>'+
+           orn(idx,side)+
+           '<div class="letter-text">'+bodyHtml+'</div>'+num;
+  }
+
+  // ---------- pages data ----------
+  var pages=[];
+
+  // page 0: inside-front-cover filler (left side only, decorative)
+  pages[0]='<div class="tint-f" style="position:absolute;inset:0;z-index:0"></div>'+
+    '<div class="corner-orn tl"><svg viewBox="0 0 120 120"><use href="#ornB" width="120" height="120"/></svg></div>'+
+    '<div style="position:relative;z-index:2;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:1rem">'+
+    '<p style="font-family:var(--hand);font-size:clamp(1.4rem,6vw,1.9rem);color:var(--rose-deep);line-height:1.5">every word here<br>is true</p></div>';
+
+  // page 1
+  pages[1]=leafHTML(1,
+    '<p class="lead">I lost the person I love the most forever and it\'s all my fault.</p>'+
+    '<p>I\'ve never loved anyone in my life as much as I\'ve loved you, and I\'ve never felt so unloved by anyone the way you made me feel. Even after i knew that u are going thru a lot but still coudnt keep my heart sattle as it was hurting.</p>',
+    true);
+
+  // page 2
+  pages[2]=leafHTML(2,
+    '<p>No, I won\'t blame you-because the mistake was mine, I took you too seriously. I loved you soo much bt didnt realise while the process of keeping you mine I was hurting you when i was angry.</p>'+
+    '<p>I never wanted to be the reason you cried, questioned your worth, or felt alone. If I could go back and rewrite every moment that hurt you, I would.</p>',
+    true);
+
+  // page 3
+  pages[3]=leafHTML(3,
+    '<p>I know there were times when I wasn\'t what you needed, no matter how desperately I wanted to be. That\'s the part that breaks me the most-not that I didn\'t love you, but that my love wasn\'t enough to protect you from the pain I caused.</p>'+
+    '<p>Maybe, in your story, I\'ll always be the one who let you down. And maybe I deserve that. But if there\'s one thing I hope you never doubt, it\'s this:</p>',
+    true);
+
+  // page 4
+  pages[4]=leafHTML(4,
+    '<p>Every smile I gave you was genuine. Every promise I made, I believed. Every "I love you" came from the deepest part of my heart.</p>'+
+    '<p>I\'m sorry that loving me came with wounds you never deserved.</p>',
+    true);
+
+  // page 5
+  pages[5]=leafHTML(5,
+    '<div class="stanza">'+
+      '<p>If one day you remember me,</p>'+
+      '<p>I hope it isn\'t only for the pain I left behind... but also for the love that,</p>'+
+      '<p>despite all my mistakes, was always real.</p>'+
+    '</div>'+
+    '<p>But i would also like to mention ( not blame) as we process things differently.</p>',
+    true);
+
+  // page 6
+  pages[6]=leafHTML(6,
+    '<div class="stanza">'+
+      '<p>You let me overthink</p>'+
+      '<p>instead of giving me reassurance,</p>'+
+      '<p>and then get mad</p>'+
+      '<p>when I start believing my own thoughts.</p>'+
+    '</div>'+
+    '<div class="stanza">'+
+      '<p>You already know how I am.</p>'+
+      '<p>You know I overthink.</p>'+
+      '<p>You know the smallest change in your tone affects me more than it should.</p>'+
+    '</div>'+
+    '<p>I\'ve told you this before.</p>',
+    true);
+
+  // page 7
+  pages[7]=leafHTML(7,
+    '<div class="stanza">'+
+      '<p>I don\'t need distance.</p>'+
+      '<p>I don\'t need space.</p>'+
+      '<p>I just need a little reassurance</p>'+
+    '</div>'+
+    '<p>Because my mind doesn\'t stay quiet it fills silence with the worst possible answers.</p>'+
+    '<p>And sometimes, all it takes is one message from you to calm everything down</p>'+
+    '<p>Just a little communication... but you don\'t give it.</p>',
+    true);
+
+  // page 8
+  pages[8]=leafHTML(8,
+    '<p>Then later, you blame me say I overreact, ( which i did. And I really regret the thungs i said to you after getting angry and hurt. )</p>'+
+    '<p>that I think too much, that everything is my fault.</p>'+
+    '<p>I thought I was only asking for something so simple.</p>'+
+    '<p>I wasn\'t asking for too much. I wasn\'t trying to fight. Bt didnt knw it was too much for you.</p>'+
+    '<p>I was just scared of losing you.</p>',
+    true);
+
+  // page 9
+  pages[9]=leafHTML(9,
+    '<p>Bt I do understand my mistake.</p>'+
+    '<p>I do admit I\'ve lost a great woman who loved me .and I loved her soo much.</p>'+
+    '<p>But i lost you bc I was immature. Too immature abt my feelings. And anger. And at the end</p>'+
+    '<p class="emph">I lost you.</p>',
+    true);
+
+  // page 10
+  pages[10]=leafHTML(10,
+    '<p>Every single day. Every single hour things are hurting me soo much. . My heart is bleeding. And hurting. Constantly i feel like I am feeling anxiety attack.</p>'+
+    '<p>But I will not share it w you after this again. Cz I have to deal with it. A d i am suffering for my own mistake. Nnot even mistake. Bt crime actually.</p>',
+    true);
+
+  // page 11
+  pages[11]=leafHTML(11,
+    '<p>And I am gretfull that u confessed that you dont feel the same for me like before. Which is very true. After all those bad things i said to you ofc thats understandable.</p>'+
+    '<p>Yesterday i asked u if You ca give me 1 last chance. But you didnt agree. U said u need to think. Bt I knw with your reaction u dont want me in your life.</p>'+
+    '<p>And I have no hard feelings for u abt this.</p>',
+    true);
+
+  // page 12
+  pages[12]=leafHTML(12,
+    '<p>Bt I would like you to know that I love you soo much. Even if i coudnt prove it w my actions. I cared abt you too much. I alws wanted u be safe and happy.</p>'+
+    '<p>I will alws pray for u to be happy. And trust me when I say that I have never loved anybody before like I love you.</p>',
+    true);
+
+  // page 13
+  pages[13]=leafHTML(13,
+    '<p>I will always pray for you to be happy and safe. With me or without me.</p>'+
+    '<p class="emph">But I will wait for you.</p>'+
+    '<p class="emph">Cz I want you.</p>'+
+    '<p class="emph">Actually I need you in my life.</p>',
+    true);
+
+  var LAST=14;
+  // page 14: final page
+  pages[LAST]=
+    '<div class="tint-a" style="position:absolute;inset:0;z-index:0"></div>'+
+    '<div class="final-frame"></div>'+
+    '<div class="final-wrap">'+
+      '<p class="final-kicker">The Last Page</p>'+
+      '<p class="final-sub">But not the end of what I feel.</p>'+
+      '<div class="final-bloom"><svg viewBox="0 0 200 140"><use href="#finalBloom" width="200" height="140"/></svg></div>'+
+      '<p class="final-love">I love you,<br>baby.</p>'+
+      '<p class="final-body">No matter what you decide, thank you for being the person I love the most.</p>'+
+      '<p class="final-sig">&mdash; from the person who will always be grateful<br>that he got to love you</p>'+
+      '<button class="close-book-btn" id="closeBookBtn" type="button">Close the book</button>'+
+    '</div>';
+
+  var MIN=1, MAX=LAST;
+  var index=1;
+  var opened=false;
+  var animating=false;
+
+  function render(){
+    leftInner.innerHTML = index-1>=0 ? pages[index-1] : '';
+    rightInner.innerHTML = pages[index] || '';
+    if(index===LAST){
+      afterPetals.classList.add('go');
+      spawnPetals();
+    } else {
+      afterPetals.classList.remove('go');
+      afterPetals.innerHTML='';
+    }
+    updateControls();
+  }
+
+  function updateControls(){
+    btnPrev.disabled = !opened || index<=MIN;
+    btnNext.disabled = !opened || index>=MAX;
+    pageNo.textContent = opened ? (index<LAST ? ('Page '+index+' of '+(LAST-1)) : '') : '';
+  }
+
+  function spawnPetals(){
+    afterPetals.innerHTML='';
+    if(reduce) return;
+    var n=10;
+    for(var i=0;i<n;i++){
+      var p=document.createElement('div');
+      p.className='after-petal';
+      var left=Math.random()*100;
+      var dur=10+Math.random()*7;
+      var delay=Math.random()*4;
+      var dx=(Math.random()*80-40)+'px';
+      p.style.left=left+'%';
+      p.style.animationDuration=dur+'s';
+      p.style.animationDelay=delay+'s';
+      p.style.setProperty('--dx',dx);
+      p.style.transform='scale('+(0.6+Math.random()*0.7)+')';
+      afterPetals.appendChild(p);
+    }
+  }
+
+  // ---------- band-curl overlay ----------
+  var BANDS=8, DUR=580, STEP=42;
+
+  function buildOverlay(sourceLeaf, sourceInnerHTML, dir){
+    var rect={
+      left: sourceLeaf.offsetLeft,
+      top: sourceLeaf.offsetTop,
+      width: sourceLeaf.offsetWidth,
+      height: sourceLeaf.offsetHeight
+    };
+    var overlay=document.createElement('div');
+    overlay.className='turn-overlay';
+    overlay.style.left=rect.left+'px';
+    overlay.style.top=rect.top+'px';
+    overlay.style.width=rect.width+'px';
+    overlay.style.height=rect.height+'px';
+    overlay.style.perspective='2000px';
+
+    var origin = dir===1 ? '0% 50%' : '100% 50%';
+    var animName = dir===1 ? 'curlNext' : 'curlPrev';
+
+    for(var i=0;i<BANDS;i++){
+      var top=(i*100/BANDS);
+      var bottom=(100-((i+1)*100/BANDS));
+      var band=document.createElement('div');
+      band.className='band';
+      band.style.clipPath='inset('+top.toFixed(2)+'% 0 '+bottom.toFixed(2)+'% 0)';
+      band.style.transformOrigin=origin;
+      var content=document.createElement('div');
+      content.className='band-content';
+      content.innerHTML=sourceInnerHTML;
+      var shade=document.createElement('div');
+      shade.className='band-shade';
+      shade.style.background = dir===1
+        ? 'linear-gradient(90deg, rgba(40,20,25,0) 55%, rgba(40,20,25,.45) 100%)'
+        : 'linear-gradient(270deg, rgba(40,20,25,0) 55%, rgba(40,20,25,.45) 100%)';
+      band.appendChild(content);
+      band.appendChild(shade);
+      if(!reduce){
+        var delay=(i*STEP)+'ms';
+        band.style.animation = animName+' '+DUR+'ms ease-in-out '+delay+' both, shadeWave '+DUR+'ms ease-in-out '+delay+' both';
+        var shadeAnim = shade.style;
+        shadeAnim.animation='shadeWave '+DUR+'ms ease-in-out '+delay+' both';
+      }
+      overlay.appendChild(band);
+    }
+    return overlay;
+  }
+
+  function totalTurnTime(){
+    return reduce ? 220 : (BANDS-1)*STEP + DUR + 40;
+  }
+
+  function turnPage(dir){
+    if(animating || !opened) return;
+    if(dir===1 && index>=MAX) return;
+    if(dir===-1 && index<=MIN) return;
+    animating=true;
+
+    if(dir===1){
+      var oldRightHTML=rightInner.innerHTML;
+      rightInner.innerHTML=pages[index+1]; // swap underneath immediately, hidden by overlay
+      var overlay=buildOverlay(rightLeaf, oldRightHTML, 1);
+      book.appendChild(overlay);
+      setTimeout(function(){
+        overlay.remove();
+        index+=1;
+        leftInner.innerHTML=pages[index-1];
+        animating=false;
+        if(index===LAST){ afterPetals.classList.add('go'); spawnPetals(); }
+        updateControls();
+      }, totalTurnTime());
+    } else {
+      var oldLeftHTML=leftInner.innerHTML;
+      leftInner.innerHTML=pages[index-2];
+      var overlay2=buildOverlay(leftLeaf, oldLeftHTML, -1);
+      book.appendChild(overlay2);
+      setTimeout(function(){
+        overlay2.remove();
+        index-=1;
+        rightInner.innerHTML=pages[index];
+        animating=false;
+        if(index<LAST){ afterPetals.classList.remove('go'); afterPetals.innerHTML=''; }
+        animating=false;
+        updateControls();
+      }, totalTurnTime());
+    }
+  }
+
+  // ---------- open / close ----------
+  function openBook(){
+    if(opened) return;
+    render();
+    opened=true;
+    root.classList.add('opened');
+    cover.classList.add('opened');
+    cover.setAttribute('aria-label','Book is open');
+    setTimeout(function(){
+      cover.style.visibility='hidden';
+      updateControls();
+    }, reduce?50:1200);
+  }
+
+  function closeBook(){
+    if(!opened) return;
+    cover.style.visibility='visible';
+    cover.classList.remove('opened');
+    afterPetals.classList.remove('go');
+    afterPetals.innerHTML='';
+    setTimeout(function(){
+      opened=false;
+      index=1;
+      root.classList.remove('opened');
+      leftInner.innerHTML='';
+      rightInner.innerHTML='';
+      cover.setAttribute('aria-label','Open the book');
+      cover.focus();
+    }, reduce?50:1200);
+  }
+
+  cover.addEventListener('click',openBook);
+  cover.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openBook(); }
+  });
+
+  tapPrev.addEventListener('click',function(){ turnPage(-1); });
+  tapNext.addEventListener('click',function(){ turnPage(1); });
+  btnPrev.addEventListener('click',function(){ turnPage(-1); });
+  btnNext.addEventListener('click',function(){ turnPage(1); });
+
+  document.addEventListener('keydown',function(e){
+    if(!opened) return;
+    if(e.key==='ArrowRight') turnPage(1);
+    else if(e.key==='ArrowLeft') turnPage(-1);
+  });
+
+  document.addEventListener('click',function(e){
+    if(e.target && e.target.id==='closeBookBtn') closeBook();
+  });
+
+  updateControls();
+})();
+</script>
+</body>
+</html>
